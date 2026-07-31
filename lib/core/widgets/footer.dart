@@ -141,12 +141,42 @@ class Footer extends StatelessWidget {
       (item) => item.id == sectionId,
       orElse: () => items.first,
     );
+    debugPrint('Scrolling to section: $sectionId');
+    debugPrint('Item key context: ${item.key.currentContext}');
+
     if (item.key.currentContext != null) {
-      Scrollable.ensureVisible(
-        item.key.currentContext!,
-        duration: const Duration(milliseconds: 800),
-        curve: Curves.easeInOutCubic,
-      );
+      // Try using Scrollable.ensureVisible first
+      try {
+        Scrollable.ensureVisible(
+          item.key.currentContext!,
+          duration: const Duration(milliseconds: 800),
+          curve: Curves.easeInOutCubic,
+        );
+      } catch (e) {
+        debugPrint('Error with Scrollable.ensureVisible: $e');
+        // Fallback: scroll to approximate position
+        final index = items.indexWhere((i) => i.id == sectionId);
+        if (index >= 0) {
+          final offset = index * 600.0; // Approximate section height
+          scrollController.animateTo(
+            offset,
+            duration: const Duration(milliseconds: 800),
+            curve: Curves.easeInOutCubic,
+          );
+        }
+      }
+    } else {
+      debugPrint('Context is null for section: $sectionId');
+      // Fallback: scroll to approximate position
+      final index = items.indexWhere((i) => i.id == sectionId);
+      if (index >= 0) {
+        final offset = index * 600.0;
+        scrollController.animateTo(
+          offset,
+          duration: const Duration(milliseconds: 800),
+          curve: Curves.easeInOutCubic,
+        );
+      }
     }
   }
 }
