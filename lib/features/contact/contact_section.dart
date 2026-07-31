@@ -103,12 +103,13 @@ class _ContactSectionState extends State<ContactSection> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final isMobile = size.width < 768;
 
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(
-        horizontal: size.width > 1200 ? 120 : 24,
-        vertical: 100,
+        horizontal: isMobile ? 16 : (size.width > 1200 ? 120 : 24),
+        vertical: isMobile ? 60 : 100,
       ),
       child: Column(
         children: [
@@ -116,7 +117,7 @@ class _ContactSectionState extends State<ContactSection> {
             title: 'Contact',
             subtitle: 'Let\'s create something amazing together',
           ),
-          const SizedBox(height: 64),
+          SizedBox(height: isMobile ? 32 : 64),
           LayoutBuilder(
             builder: (context, constraints) {
               final isDesktop = constraints.maxWidth > 900;
@@ -144,7 +145,7 @@ class _ContactSectionState extends State<ContactSection> {
                 return Column(
                   children: [
                     _buildContactInfo(context),
-                    const SizedBox(height: 48),
+                    SizedBox(height: isMobile ? 32 : 48),
                     _buildContactForm(context),
                   ],
                 );

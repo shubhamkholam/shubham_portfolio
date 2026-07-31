@@ -13,12 +13,13 @@ class ExperienceSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final isMobile = size.width < 768;
 
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(
-        horizontal: size.width > 1200 ? 120 : 24,
-        vertical: 100,
+        horizontal: isMobile ? 16 : (size.width > 1200 ? 120 : 24),
+        vertical: isMobile ? 60 : 100,
       ),
       child: Column(
         children: [

@@ -18,12 +18,17 @@ class HeroSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final size = MediaQuery.of(context).size;
+    final isMobile = size.width < 768;
 
     return SizedBox(
-      height: size.height * 1.4,
+      height: isMobile ? size.height * 1.2 : size.height * 1.4,
       child: Center(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.only(left: 32, right: 32, top: 100),
+          padding: EdgeInsets.only(
+            left: isMobile ? 16 : 32,
+            right: isMobile ? 16 : 32,
+            top: isMobile ? 80 : 100,
+          ),
           child: LayoutBuilder(
             builder: (context, constraints) {
               final isDesktop = constraints.maxWidth > 1200;
@@ -52,16 +57,16 @@ class HeroSection extends StatelessWidget {
                   ] else ...[
                     // Mobile/Tablet - Stacked layout
                     _buildProfileImage(context, theme),
-                    const SizedBox(height: 48),
+                    SizedBox(height: isMobile ? 32 : 48),
                     _buildTextContent(context, theme),
                   ],
-                  const SizedBox(height: 64),
+                  SizedBox(height: isMobile ? 32 : 64),
                   // CTA Buttons
                   _buildCTAButtons(context, theme),
-                  const SizedBox(height: 48),
+                  SizedBox(height: isMobile ? 32 : 48),
                   // Social icons
                   _buildSocialIcons(context, theme),
-                  const SizedBox(height: 48),
+                  SizedBox(height: isMobile ? 32 : 48),
                   // Scroll indicator
                   const ScrollIndicator(),
                 ],

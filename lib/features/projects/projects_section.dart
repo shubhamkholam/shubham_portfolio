@@ -20,6 +20,7 @@ class _ProjectsSectionState extends State<ProjectsSection> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final isMobile = size.width < 768;
 
     final categories = ['All', ...ProjectsData.categories];
     final filteredProjects = _selectedCategory == 'All'
@@ -29,8 +30,8 @@ class _ProjectsSectionState extends State<ProjectsSection> {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(
-        horizontal: size.width > 1200 ? 120 : 24,
-        vertical: 100,
+        horizontal: isMobile ? 16 : (size.width > 1200 ? 120 : 24),
+        vertical: isMobile ? 60 : 100,
       ),
       child: Column(
         children: [
@@ -77,9 +78,9 @@ class _ProjectsSectionState extends State<ProjectsSection> {
                 physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: crossAxisCount,
-                  childAspectRatio: 0.85,
-                  crossAxisSpacing: 32,
-                  mainAxisSpacing: 32,
+                  childAspectRatio: isMobile ? 0.75 : 0.85,
+                  crossAxisSpacing: isMobile ? 16 : 32,
+                  mainAxisSpacing: isMobile ? 16 : 32,
                 ),
                 itemCount: filteredProjects.length,
                 itemBuilder: (context, index) {

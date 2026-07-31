@@ -17,10 +17,15 @@ class Footer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final size = MediaQuery.of(context).size;
+    final isMobile = size.width < 768;
 
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(vertical: 48, horizontal: 24),
+      padding: EdgeInsets.symmetric(
+        vertical: isMobile ? 32 : 48,
+        horizontal: isMobile ? 16 : 24,
+      ),
       decoration: BoxDecoration(
         color: theme.colorScheme.surfaceVariant,
       ),

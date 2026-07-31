@@ -66,6 +66,8 @@ class _PremiumNavbarState extends State<PremiumNavbar> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
+    final size = MediaQuery.of(context).size;
+    final isMobile = size.width < 768;
 
     return AnimatedSlide(
       offset: Offset(0, _isVisible ? 0 : -1),
@@ -75,14 +77,17 @@ class _PremiumNavbarState extends State<PremiumNavbar> {
         opacity: _isVisible ? 1.0 : 0.0,
         duration: const Duration(milliseconds: 300),
         child: Container(
-          height: 120,
-          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+          height: isMobile ? 80 : 120,
+          padding: EdgeInsets.symmetric(
+            horizontal: isMobile ? 16 : 32,
+            vertical: isMobile ? 8 : 16,
+          ),
           child: Container(
             decoration: BoxDecoration(
               color: isDark
                   ? Colors.white.withOpacity(0.05)
                   : Colors.black.withOpacity(0.02),
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(isMobile ? 16 : 20),
               border: Border.all(
                 color: isDark
                     ? Colors.white.withOpacity(0.1)
@@ -98,12 +103,14 @@ class _PremiumNavbarState extends State<PremiumNavbar> {
               ],
             ),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(isMobile ? 16 : 20),
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                 child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: isMobile ? 16 : 24,
+                    vertical: isMobile ? 8 : 12,
+                  ),
                   child: Row(
                     children: [
                       // Logo
@@ -112,18 +119,38 @@ class _PremiumNavbarState extends State<PremiumNavbar> {
                         style: theme.textTheme.headlineSmall?.copyWith(
                           fontWeight: FontWeight.w700,
                           color: AppTheme.primaryColor,
+                          fontSize: isMobile ? 20 : 24,
                         ),
                       ),
                       const Spacer(),
-                      // Nav items
-                      ...widget.items.map((item) {
-                        final isActive = _activeSection == item.id;
-                        return _NavItemWidget(
-                          item: item,
-                          isActive: isActive,
-                          onTap: () => _scrollToSection(item.id),
-                        );
-                      }),
+                      // Nav items - horizontal scroll on mobile
+                      if (isMobile)
+                        Expanded(
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: widget.items.map((item) {
+                                final isActive = _activeSection == item.id;
+                                return _NavItemWidget(
+                                  item: item,
+                                  isActive: isActive,
+                                  onTap: () => _scrollToSection(item.id),
+                                  isMobile: true,
+                                );
+                              }).toList(),
+                            ),
+                          ),
+                        )
+                      else
+                        ...widget.items.map((item) {
+                          final isActive = _activeSection == item.id;
+                          return _NavItemWidget(
+                            item: item,
+                            isActive: isActive,
+                            onTap: () => _scrollToSection(item.id),
+                            isMobile: false,
+                          );
+                        }),
                     ],
                   ),
                 ),
@@ -140,11 +167,13 @@ class _NavItemWidget extends StatefulWidget {
   final NavItem item;
   final bool isActive;
   final VoidCallback onTap;
+  final bool isMobile;
 
   const _NavItemWidget({
     required this.item,
     required this.isActive,
     required this.onTap,
+    this.isMobile = false,
   });
 
   @override
@@ -176,54 +205,48 @@ class _NavItemWidgetState extends State<_NavItemWidget>
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
 
-    return MouseRegion(
-      onEnter: (_) {
-        setState(() => _isHovered = true);
-        _controller.forward();
-      },
-      onExit: (_) {
-        setState(() => _isHovered = false);
-        _controller.reverse();
-      },
-      cursor: SystemMouseCursors.click,
-      child: GestureDetector(
-        onTap: widget.onTap,
-        child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 8),
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            color: widget.isActive
-                ? AppTheme.primaryColor.withOpacity(0.1)
-                : Colors.transparent,
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                widget.item.label,
-                style: theme.textTheme.labelLarge?.copyWith(
-                  color: widget.isActive
-                      ? AppTheme.primaryColor
-                      : (isDark
-                          ? AppTheme.textSecondaryColor
-                          : AppTheme.textSecondaryColor),
-                  fontWeight:
-                      widget.isActive ? FontWeight.w600 : FontWeight.w500,
-                ),
+    return GestureDetector(
+      onTap: widget.onTap,
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: widget.isMobile ? 4 : 8),
+        padding: EdgeInsets.symmetric(
+          horizontal: widget.isMobile ? 12 : 16,
+          vertical: widget.isMobile ? 8 : 12,
+        ),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(widget.isMobile ? 8 : 12),
+          color: widget.isActive
+              ? AppTheme.primaryColor.withOpacity(0.1)
+              : Colors.transparent,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              widget.item.label,
+              style: theme.textTheme.labelLarge?.copyWith(
+                color: widget.isActive
+                    ? AppTheme.primaryColor
+                    : (isDark
+                        ? AppTheme.textSecondaryColor
+                        : AppTheme.textSecondaryColor),
+                fontWeight: widget.isActive ? FontWeight.w600 : FontWeight.w500,
+                fontSize: widget.isMobile ? 12 : 14,
               ),
-              const SizedBox(height: 2),
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 200),
-                height: 2,
-                width: widget.isActive || _isHovered ? 24 : 0,
-                decoration: BoxDecoration(
-                  gradient: AppTheme.auroraGradient1,
-                  borderRadius: BorderRadius.circular(1),
-                ),
+            ),
+            const SizedBox(height: 2),
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              height: 2,
+              width: widget.isActive || _isHovered
+                  ? (widget.isMobile ? 16 : 24)
+                  : 0,
+              decoration: BoxDecoration(
+                gradient: AppTheme.auroraGradient1,
+                borderRadius: BorderRadius.circular(1),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
