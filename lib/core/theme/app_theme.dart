@@ -24,7 +24,7 @@ class AppTheme {
   static const Color _darkPink = Color(0xFFEC4899);
 
   static const Color _darkText = Color(0xFFE2E8F0);
-  static const Color _darkTextSecondary = Color(0xFF94A3B8);
+  static const Color _darkTextSecondary = Color(0xFF94A300);
 
   static const Color _darkBorder = Color(0x1FFFFFFF);
 
