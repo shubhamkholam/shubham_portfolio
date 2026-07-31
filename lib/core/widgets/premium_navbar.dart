@@ -225,7 +225,7 @@ class _NavItemWidgetState extends State<_NavItemWidget>
                         ? AppTheme.textSecondaryColor
                         : AppTheme.textSecondaryColor),
                 fontWeight: widget.isActive ? FontWeight.w600 : FontWeight.w500,
-                fontSize: widget.isMobile ? 12.sp : 14.sp,
+                fontSize: widget.isMobile ? 13.sp : 14.sp,
               ),
             ),
             SizedBox(height: 2.h),

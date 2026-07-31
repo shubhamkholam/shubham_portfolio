@@ -298,8 +298,9 @@ class _ContactSectionState extends State<ContactSection> {
   }
 
   Widget _buildContactForm(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return PremiumGlassCard(
-      padding: EdgeInsets.all(40),
+      padding: EdgeInsets.all(size.width < 768 ? 24 : 40),
       child: Form(
         key: _formKey,
         child: Column(

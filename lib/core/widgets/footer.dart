@@ -24,8 +24,8 @@ class Footer extends StatelessWidget {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(
-        vertical: isMobile ? 32 : 48,
-        horizontal: isMobile ? 16 : 24,
+        vertical: isMobile ? 40 : 48,
+        horizontal: isMobile ? 20 : 24,
       ),
       decoration: BoxDecoration(
         color: theme.colorScheme.surfaceVariant,
@@ -56,8 +56,8 @@ class Footer extends StatelessWidget {
 
           // Navigation links
           Wrap(
-            spacing: isMobile ? 16 : 24,
-            runSpacing: isMobile ? 8 : 12,
+            spacing: isMobile ? 20 : 24,
+            runSpacing: isMobile ? 12 : 12,
             alignment: WrapAlignment.center,
             children: [
               _FooterLink(
@@ -219,12 +219,13 @@ class _FooterLink extends StatelessWidget {
       borderRadius: BorderRadius.circular(4.r),
       child: Padding(
         padding: EdgeInsets.symmetric(
-            horizontal: isMobile ? 6.w : 8.w, vertical: isMobile ? 3.h : 4.h),
+            horizontal: isMobile ? 8.w : 8.w, vertical: isMobile ? 6.h : 4.h),
         child: Text(
           label,
           style: theme.textTheme.bodyMedium?.copyWith(
             color: theme.colorScheme.onSurface.withOpacity(0.7),
-            fontSize: isMobile ? 13.sp : 15.sp,
+            fontSize: isMobile ? 15.sp : 15.sp,
+            fontWeight: isMobile ? FontWeight.w500 : FontWeight.normal,
           ),
         ),
       ),
@@ -263,7 +264,7 @@ class _SocialIcon extends StatelessWidget {
         onTap: _launchUrl,
         borderRadius: BorderRadius.circular(8.r),
         child: Container(
-          padding: EdgeInsets.all(isMobile ? 8.w : 12.w),
+          padding: EdgeInsets.all(isMobile ? 12.w : 12.w),
           decoration: BoxDecoration(
             color: theme.colorScheme.surface,
             borderRadius: BorderRadius.circular(8.r),
@@ -274,7 +275,7 @@ class _SocialIcon extends StatelessWidget {
           child: Icon(
             icon,
             color: theme.colorScheme.primary,
-            size: isMobile ? 18.r : 20.r,
+            size: isMobile ? 22.r : 20.r,
           ),
         ),
       ),

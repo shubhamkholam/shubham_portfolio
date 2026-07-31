@@ -189,7 +189,7 @@ class _PremiumAchievementCardState extends State<_PremiumAchievementCard>
                   ),
                   child: Text(
                     '${_counterAnimation.value.toInt()}${widget.achievement.suffix}',
-                    style: theme.textTheme.displayMedium?.copyWith(
+                    style: theme.textTheme.displaySmall?.copyWith(
                       fontWeight: FontWeight.w800,
                       color: Colors.white,
                     ),

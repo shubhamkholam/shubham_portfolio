@@ -13,10 +13,11 @@ class ExperienceSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(
-        horizontal: 120.w,
+        horizontal: size.width > 1200 ? 120.w : 16.w,
         vertical: 100.h,
       ),
       child: Column(
@@ -199,8 +200,8 @@ class _PremiumExperienceCardState extends State<_PremiumExperienceCard>
     final theme = Theme.of(context);
 
     return PremiumGlassCard(
-      margin: EdgeInsets.symmetric(horizontal: 10.w),
-      padding: EdgeInsets.all(32.w),
+      margin: EdgeInsets.symmetric(horizontal: 4.w),
+      padding: EdgeInsets.all(20.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -216,17 +217,21 @@ class _PremiumExperienceCardState extends State<_PremiumExperienceCard>
                       style: theme.textTheme.titleLarge?.copyWith(
                         fontWeight: FontWeight.w800,
                         color: AppTheme.textColor,
-                        fontSize: 26.sp,
+                        fontSize: 20.sp,
                       ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    SizedBox(height: 10.h),
+                    SizedBox(height: 8.h),
                     Text(
                       widget.experience.role,
                       style: theme.textTheme.titleMedium?.copyWith(
                         color: AppTheme.primaryColor,
                         fontWeight: FontWeight.w600,
-                        fontSize: 18.sp,
+                        fontSize: 16.sp,
                       ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ],
                 ),
@@ -283,34 +288,45 @@ class _PremiumExperienceCardState extends State<_PremiumExperienceCard>
           SizedBox(height: 16.h),
 
           // Location and duration
-          Row(
+          Wrap(
+            spacing: 16.w,
+            runSpacing: 8.h,
             children: [
-              Icon(
-                Icons.location_on_outlined,
-                size: 18.r,
-                color: AppTheme.textSecondaryColor,
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.location_on_outlined,
+                    size: 16.r,
+                    color: AppTheme.textSecondaryColor,
+                  ),
+                  SizedBox(width: 6.w),
+                  Text(
+                    widget.experience.location,
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      color: AppTheme.textSecondaryColor,
+                      fontSize: 14.sp,
+                    ),
+                  ),
+                ],
               ),
-              SizedBox(width: 8.w),
-              Text(
-                widget.experience.location,
-                style: theme.textTheme.bodyMedium?.copyWith(
-                  color: AppTheme.textSecondaryColor,
-                  fontSize: 16.sp,
-                ),
-              ),
-              SizedBox(width: 24.w),
-              Icon(
-                Icons.calendar_today_outlined,
-                size: 18.r,
-                color: AppTheme.textSecondaryColor,
-              ),
-              SizedBox(width: 8.w),
-              Text(
-                '${widget.experience.startDate} - ${widget.experience.endDate ?? 'Present'}',
-                style: theme.textTheme.bodyMedium?.copyWith(
-                  color: AppTheme.textSecondaryColor,
-                  fontSize: 16.sp,
-                ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.calendar_today_outlined,
+                    size: 16.r,
+                    color: AppTheme.textSecondaryColor,
+                  ),
+                  SizedBox(width: 6.w),
+                  Text(
+                    '${widget.experience.startDate} - ${widget.experience.endDate ?? 'Present'}',
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      color: AppTheme.textSecondaryColor,
+                      fontSize: 14.sp,
+                    ),
+                  ),
+                ],
               ),
             ],
           ).animate().fadeIn(

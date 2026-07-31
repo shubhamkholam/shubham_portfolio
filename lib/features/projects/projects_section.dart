@@ -285,8 +285,8 @@ class _PremiumProjectCardState extends State<_PremiumProjectCard>
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                           colors: [
-                            AppTheme.primaryColor.withOpacity(0.2),
-                            AppTheme.secondaryColor.withOpacity(0.2),
+                            AppTheme.primaryColor.withOpacity(0.15),
+                            AppTheme.secondaryColor.withOpacity(0.15),
                           ],
                         ),
                         borderRadius: BorderRadius.vertical(
@@ -294,10 +294,23 @@ class _PremiumProjectCardState extends State<_PremiumProjectCard>
                         ),
                       ),
                       child: Center(
-                        child: Icon(
-                          Icons.image_outlined,
-                          size: 64.r,
-                          color: AppTheme.primaryColor.withOpacity(0.5),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.apps_outlined,
+                              size: 48.r,
+                              color: AppTheme.primaryColor.withOpacity(0.6),
+                            ),
+                            SizedBox(height: 12.h),
+                            Text(
+                              'Project Preview',
+                              style: theme.textTheme.bodySmall?.copyWith(
+                                color: AppTheme.primaryColor.withOpacity(0.6),
+                                fontSize: 14.sp,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),

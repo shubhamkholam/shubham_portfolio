@@ -91,7 +91,7 @@ class AboutSection extends StatelessWidget {
               'assets/images/shubham.png',
               width: 300,
               height: 400,
-              fit: BoxFit.cover,
+              fit: BoxFit.contain,
             ),
           ),
         ),
