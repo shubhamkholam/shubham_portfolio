@@ -217,7 +217,7 @@ class HeroSection extends StatelessWidget {
       final blob = html.Blob([bytes], 'application/pdf');
       final url = html.Url.createObjectUrlFromBlob(blob);
       html.AnchorElement(href: url)
-        ..setAttribute('download', 'shubham_kholam_resume.pdf')
+        ..setAttribute('download', 'shubham_kholam.pdf')
         ..click();
       html.Url.revokeObjectUrl(url);
     } catch (e) {

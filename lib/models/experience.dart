@@ -29,8 +29,8 @@ class ExperienceData {
       role: 'Software Development Engineer – III (Flutter)',
       location: 'Pune, Maharashtra, India',
       startDate: 'Jul 2023',
-      endDate: null,
-      isCurrent: true,
+      endDate: 'Jul 2026',
+      isCurrent: false,
       responsibilities: [
         'Architected and shipped multiple high-impact cross-platform applications including Seeu Dating App, EasyScore, Gobet (live sports betting, France region), E-MediCare (healthcare), and KIMI (crowdfunding)',
         'Led full-cycle development of Smart Ship Hub (Vessel/Shore Finder), a logistics platform delivering real-time marine tracking across Android, iOS, and web',

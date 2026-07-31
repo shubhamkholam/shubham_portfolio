@@ -4,6 +4,7 @@ import 'core/theme/app_theme.dart';
 import 'core/theme/theme_provider.dart';
 import 'core/widgets/animated_mesh_background.dart';
 import 'core/widgets/premium_navbar.dart';
+import 'core/widgets/visitor_counter.dart';
 import 'features/home/hero_section.dart';
 import 'features/about/about_section.dart';
 import 'features/skills/skills_section.dart';
@@ -135,6 +136,12 @@ class _PortfolioHomePageState extends State<PortfolioHomePage> {
                   items: _navItems,
                 ),
               ),
+            ),
+            // Visitor Counter
+            Positioned(
+              bottom: 20,
+              right: 20,
+              child: const VisitorCounter(),
             ),
           ],
         ),
