@@ -18,7 +18,7 @@ class HeroSection extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     return SizedBox(
-      height: size.height * 1.3,
+      height: size.height * 1.45,
       child: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.only(left: 32, right: 32, top: 100),
