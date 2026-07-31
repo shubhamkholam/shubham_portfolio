@@ -75,7 +75,7 @@ class _PremiumNavbarState extends State<PremiumNavbar> {
         opacity: _isVisible ? 1.0 : 0.0,
         duration: const Duration(milliseconds: 300),
         child: Container(
-          height: 80,
+          height: 120,
           padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
           child: Container(
             decoration: BoxDecoration(
