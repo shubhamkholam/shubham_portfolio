@@ -44,10 +44,10 @@ class HeroSection extends StatelessWidget {
                         ),
                         SizedBox(width: 80.w),
                         // Right side - Profile image with glow
-                        Expanded(
-                          flex: 1,
-                          child: _buildProfileImage(context, theme),
-                        ),
+                        // Expanded(
+                        //   flex: 1,
+                        //   child: _buildProfileImage(context, theme),
+                        // ),
                       ],
                     ),
                   ] else ...[
