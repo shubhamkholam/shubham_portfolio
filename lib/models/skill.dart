@@ -21,19 +21,31 @@ class SkillsData {
     Skill(name: 'Dart', icon: '🎯', category: 'Flutter', proficiency: 95),
 
     // Firebase
-    Skill(name: 'Firebase', icon: '🔥', category: 'Firebase', proficiency: 90),
-    Skill(name: 'Firestore', icon: '📄', category: 'Firebase', proficiency: 88),
+    Skill(name: 'Firebase', icon: '🔥', category: 'Firebase', proficiency: 92),
+    Skill(name: 'Firestore', icon: '📄', category: 'Firebase', proficiency: 90),
     Skill(
       name: 'Firebase Auth',
       icon: '🔐',
       category: 'Firebase',
-      proficiency: 90,
+      proficiency: 92,
     ),
     Skill(
       name: 'Firebase Storage',
       icon: '☁️',
       category: 'Firebase',
+      proficiency: 88,
+    ),
+    Skill(
+      name: 'Cloud Functions',
+      icon: '⚙️',
+      category: 'Firebase',
       proficiency: 85,
+    ),
+    Skill(
+      name: 'FCM',
+      icon: '📱',
+      category: 'Firebase',
+      proficiency: 90,
     ),
 
     // State Management
@@ -53,13 +65,13 @@ class SkillsData {
       name: 'Bloc',
       icon: '🧱',
       category: 'State Management',
-      proficiency: 90,
+      proficiency: 92,
     ),
     Skill(
       name: 'Provider',
       icon: '📦',
       category: 'State Management',
-      proficiency: 92,
+      proficiency: 90,
     ),
 
     // Architecture
@@ -67,40 +79,118 @@ class SkillsData {
       name: 'Clean Architecture',
       icon: '🏗️',
       category: 'Architecture',
-      proficiency: 90,
+      proficiency: 92,
     ),
-    Skill(name: 'MVVM', icon: '🔄', category: 'Architecture', proficiency: 88),
-    Skill(
-      name: 'Dependency Injection',
-      icon: '💉',
-      category: 'Architecture',
-      proficiency: 85,
-    ),
+    Skill(name: 'MVVM', icon: '🔄', category: 'Architecture', proficiency: 90),
+    Skill(name: 'MVC', icon: '🎨', category: 'Architecture', proficiency: 85),
 
     // APIs & Data
     Skill(name: 'REST API', icon: '🌐', category: 'API', proficiency: 92),
-    Skill(name: 'GraphQL', icon: '📊', category: 'API', proficiency: 80),
-    Skill(name: 'WebSocket', icon: '🔌', category: 'API', proficiency: 82),
+    Skill(name: 'JSON', icon: '�', category: 'API', proficiency: 95),
+    Skill(name: 'WebSocket', icon: '🔌', category: 'API', proficiency: 88),
+    Skill(name: 'Socket.IO', icon: '🔗', category: 'API', proficiency: 85),
 
     // Databases
-    Skill(name: 'SQLite', icon: '💾', category: 'Database', proficiency: 85),
-    Skill(name: 'Hive', icon: '🐝', category: 'Database', proficiency: 88),
+    Skill(name: 'SQLite', icon: '💾', category: 'Database', proficiency: 88),
+    Skill(name: 'Hive', icon: '🐝', category: 'Database', proficiency: 90),
+    Skill(name: 'MySQL', icon: '🗄️', category: 'Database', proficiency: 82),
+    Skill(
+      name: 'SharedPreferences',
+      icon: '📝',
+      category: 'Database',
+      proficiency: 90,
+    ),
 
     // Platforms
-    Skill(name: 'Android', icon: '🤖', category: 'Platform', proficiency: 90),
-    Skill(name: 'iOS', icon: '🍎', category: 'Platform', proficiency: 85),
-
-    // Tools
-    Skill(name: 'Git', icon: '📚', category: 'Tools', proficiency: 92),
-    Skill(name: 'GitHub', icon: '🐙', category: 'Tools', proficiency: 90),
-    Skill(name: 'CI/CD', icon: '🔄', category: 'Tools', proficiency: 85),
-    Skill(name: 'Google Maps', icon: '🗺️', category: 'Tools', proficiency: 82),
+    Skill(name: 'Android', icon: '🤖', category: 'Platform', proficiency: 92),
+    Skill(name: 'iOS', icon: '🍎', category: 'Platform', proficiency: 88),
     Skill(
-      name: 'Payment Gateway',
-      icon: '💳',
-      category: 'Tools',
-      proficiency: 80,
+        name: 'Flutter Web', icon: '🌍', category: 'Platform', proficiency: 85),
+
+    // DevOps & Tools
+    Skill(name: 'Git', icon: '📚', category: 'DevOps', proficiency: 92),
+    Skill(name: 'GitHub', icon: '🐙', category: 'DevOps', proficiency: 90),
+    Skill(name: 'GitLab', icon: '🦊', category: 'DevOps', proficiency: 85),
+    Skill(name: 'CI/CD', icon: '🔄', category: 'DevOps', proficiency: 88),
+    Skill(name: 'Fastlane', icon: '🚀', category: 'DevOps', proficiency: 85),
+    Skill(
+      name: 'GitHub Actions',
+      icon: '⚡',
+      category: 'DevOps',
+      proficiency: 85,
     ),
+    Skill(
+      name: 'Android Studio',
+      icon: '📱',
+      category: 'DevOps',
+      proficiency: 95,
+    ),
+    Skill(name: 'VS Code', icon: '💻', category: 'DevOps', proficiency: 92),
+    Skill(name: 'Android SDK', icon: '�️', category: 'DevOps', proficiency: 90),
+
+    // Specializations
+    Skill(
+      name: 'Performance Optimization',
+      icon: '⚡',
+      category: 'Specializations',
+      proficiency: 90,
+    ),
+    Skill(
+      name: 'Lazy Loading',
+      icon: '📥',
+      category: 'Specializations',
+      proficiency: 92,
+    ),
+    Skill(
+      name: 'Isolates',
+      icon: '🔀',
+      category: 'Specializations',
+      proficiency: 85,
+    ),
+    Skill(
+      name: 'Profiling',
+      icon: '📊',
+      category: 'Specializations',
+      proficiency: 88,
+    ),
+    Skill(
+      name: 'Push Notifications',
+      icon: '🔔',
+      category: 'Specializations',
+      proficiency: 90,
+    ),
+
+    // Testing
+    Skill(
+      name: 'Unit Testing',
+      icon: '🧪',
+      category: 'Testing',
+      proficiency: 85,
+    ),
+    Skill(
+      name: 'Widget Testing',
+      icon: '🔬',
+      category: 'Testing',
+      proficiency: 85,
+    ),
+    Skill(
+      name: 'Play Store Deployment',
+      icon: '�',
+      category: 'Testing',
+      proficiency: 90,
+    ),
+    Skill(
+      name: 'App Store Deployment',
+      icon: '🍎',
+      category: 'Testing',
+      proficiency: 88,
+    ),
+
+    // Methodologies
+    Skill(
+        name: 'Agile', icon: '🏃', category: 'Methodologies', proficiency: 90),
+    Skill(
+        name: 'Scrum', icon: '📋', category: 'Methodologies', proficiency: 88),
   ];
 
   static List<String> get categories {

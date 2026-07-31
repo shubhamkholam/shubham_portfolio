@@ -144,8 +144,8 @@ class _ContactSectionState extends State<ContactSection> {
         _PremiumContactInfo(
           icon: Icons.email_outlined,
           label: 'Email',
-          value: 'shubham@example.com',
-          url: 'mailto:shubham@example.com',
+          value: 'shubhamkholam@gmail.com',
+          url: 'mailto:shubhamkholam@gmail.com',
         ).animate().fadeIn(duration: 600.ms, delay: 300.ms),
 
         const SizedBox(height: 24),
@@ -229,7 +229,7 @@ class _ContactSectionState extends State<ContactSection> {
           children: [
             _PremiumSocialButton(
               icon: Icons.link,
-              url: 'https://linkedin.com/in/shubhamkholam',
+              url: 'https://linkedin.com/in/shubham-kholam-333889159',
               label: 'LinkedIn',
             ),
             const SizedBox(width: 16),
