@@ -190,7 +190,7 @@ class _NavItemWidgetState extends State<_NavItemWidget>
         onTap: widget.onTap,
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 8),
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
             color: widget.isActive
@@ -212,7 +212,7 @@ class _NavItemWidgetState extends State<_NavItemWidget>
                       widget.isActive ? FontWeight.w600 : FontWeight.w500,
                 ),
               ),
-              const SizedBox(height: 4),
+              const SizedBox(height: 2),
               AnimatedContainer(
                 duration: const Duration(milliseconds: 200),
                 height: 2,
