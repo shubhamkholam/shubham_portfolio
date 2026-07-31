@@ -107,7 +107,7 @@ class _ContactSectionState extends State<ContactSection> {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(
-        horizontal: size.width > 1200 ? 120 : 24,
+        horizontal: size.width > 1200 ? 120 : 20,
         vertical: 100,
       ),
       child: Column(
@@ -215,52 +215,6 @@ class _ContactSectionState extends State<ContactSection> {
 
         const SizedBox(height: 40),
 
-        // Availability badge
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-          decoration: BoxDecoration(
-            gradient: AppTheme.auroraGradient2,
-            borderRadius: BorderRadius.circular(24),
-            boxShadow: [
-              BoxShadow(
-                color: AppTheme.primaryColor.withOpacity(0.3),
-                blurRadius: 20,
-                offset: const Offset(0, 8),
-              ),
-            ],
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                width: 10,
-                height: 10,
-                decoration: BoxDecoration(
-                  color: Colors.green,
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.green.withOpacity(0.5),
-                      blurRadius: 8,
-                      spreadRadius: 2,
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 12),
-              Text(
-                'Available for work',
-                style: theme.textTheme.bodyMedium?.copyWith(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ],
-          ),
-        ).animate().fadeIn(duration: 600.ms, delay: 600.ms),
-
-        const SizedBox(height: 40),
-
         // Social links
         Text(
           'Connect with me',
@@ -352,7 +306,8 @@ class _ContactSectionState extends State<ContactSection> {
               controller: _messageController,
               label: 'Message',
               icon: Icons.message_outlined,
-              maxLines: 5,
+              maxLines: 6,
+              keyboardType: TextInputType.multiline,
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter your message';

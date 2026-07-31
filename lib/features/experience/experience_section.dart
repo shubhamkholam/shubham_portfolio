@@ -3,11 +3,10 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/widgets/section_header.dart';
-import '../../core/widgets/premium_glass_card.dart';
 import '../../models/experience.dart';
 
-/// Premium Experience Section with expandable cards and animated timeline
-/// Inspired by Linear and Vercel career pages
+/// Premium Experience Section with horizontal scrolling cards
+/// Modern card-based layout for better UX
 class ExperienceSection extends StatelessWidget {
   const ExperienceSection({super.key});
 
@@ -21,413 +20,212 @@ class ExperienceSection extends StatelessWidget {
         vertical: 100.h,
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SectionHeader(
             title: 'Experience',
             subtitle: 'A journey through my professional growth',
           ),
 
-          SizedBox(height: 64.h),
+          SizedBox(height: 48.h),
 
-          // Premium timeline
-          _PremiumTimeline(experiences: ExperienceData.experiences),
+          // Horizontal scrolling experience cards
+          _HorizontalExperienceCards(experiences: ExperienceData.experiences),
         ],
       ),
     );
   }
 }
 
-/// Premium timeline widget
-class _PremiumTimeline extends StatelessWidget {
+/// Horizontal scrolling experience cards
+class _HorizontalExperienceCards extends StatelessWidget {
   final List<Experience> experiences;
 
-  const _PremiumTimeline({required this.experiences});
+  const _HorizontalExperienceCards({required this.experiences});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: experiences.asMap().entries.map((entry) {
-        final index = entry.key;
-        final experience = entry.value;
-        final isLast = index == experiences.length - 1;
-
-        return Column(
-          children: [
-            _PremiumTimelineItem(
-              experience: experience,
-              isLast: isLast,
+    return SizedBox(
+      height: 420.h,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: experiences.length,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: EdgeInsets.only(right: 24.w),
+            child: _ExperienceCard(
+              experience: experiences[index],
               index: index,
             ),
-            if (!isLast) const SizedBox(height: 32),
-          ],
-        );
-      }).toList(),
+          );
+        },
+      ),
     );
   }
 }
 
-/// Premium timeline item widget
-class _PremiumTimelineItem extends StatelessWidget {
-  final Experience experience;
-  final bool isLast;
-  final int index;
-
-  const _PremiumTimelineItem({
-    required this.experience,
-    required this.isLast,
-    required this.index,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // Animated timeline line and dot
-        SizedBox(
-          width: 60,
-          child: Column(
-            children: [
-              // Glowing dot
-              Container(
-                width: 24,
-                height: 24,
-                decoration: BoxDecoration(
-                  gradient: AppTheme.auroraGradient1,
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppTheme.primaryColor.withOpacity(0.4),
-                      blurRadius: 12,
-                      spreadRadius: 2,
-                    ),
-                  ],
-                ),
-              ).animate().scale(duration: 500.ms, delay: (index * 200).ms),
-
-              // Gradient line
-              if (!isLast)
-                Expanded(
-                  child: Container(
-                    width: 3,
-                    margin: const EdgeInsets.symmetric(vertical: 8),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          AppTheme.primaryColor,
-                          AppTheme.primaryColor.withOpacity(0.2),
-                        ],
-                      ),
-                      borderRadius: BorderRadius.circular(2),
-                    ),
-                  ).animate().fadeIn(
-                        duration: 500.ms,
-                        delay: (index * 200 + 100).ms,
-                      ),
-                ),
-            ],
-          ),
-        ),
-
-        // Content
-        Expanded(
-          child: _PremiumExperienceCard(
-            experience: experience,
-            index: index,
-          ),
-        ),
-
-        const SizedBox(width: 60),
-      ],
-    );
-  }
-}
-
-/// Premium expandable experience card
-class _PremiumExperienceCard extends StatefulWidget {
+/// Modern experience card
+class _ExperienceCard extends StatelessWidget {
   final Experience experience;
   final int index;
 
-  const _PremiumExperienceCard({
+  const _ExperienceCard({
     required this.experience,
     required this.index,
   });
-
-  @override
-  State<_PremiumExperienceCard> createState() => _PremiumExperienceCardState();
-}
-
-class _PremiumExperienceCardState extends State<_PremiumExperienceCard>
-    with SingleTickerProviderStateMixin {
-  bool _isExpanded = false;
-  late AnimationController _controller;
-  late Animation<double> _expandAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 300),
-    );
-    _expandAnimation = CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeInOut,
-    );
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  void _toggleExpand() {
-    setState(() {
-      _isExpanded = !_isExpanded;
-      if (_isExpanded) {
-        _controller.forward();
-      } else {
-        _controller.reverse();
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final size = MediaQuery.of(context).size;
+    final cardWidth = size.width > 768 ? 380.w : 320.w;
 
-    return PremiumGlassCard(
-      margin: EdgeInsets.symmetric(horizontal: 4.w),
-      padding: EdgeInsets.all(20.w),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Header with company, role, and expand button
-          Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      widget.experience.company,
-                      style: theme.textTheme.titleLarge?.copyWith(
-                        fontWeight: FontWeight.w800,
-                        color: AppTheme.textColor,
-                        fontSize: 20.sp,
-                      ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    SizedBox(height: 8.h),
-                    Text(
-                      widget.experience.role,
-                      style: theme.textTheme.titleMedium?.copyWith(
-                        color: AppTheme.primaryColor,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 16.sp,
-                      ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
-                ),
-              ),
-              if (widget.experience.isCurrent)
-                Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 16.w,
-                    vertical: 8.h,
-                  ),
-                  decoration: BoxDecoration(
-                    gradient: AppTheme.auroraGradient1,
-                    borderRadius: BorderRadius.circular(20),
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppTheme.primaryColor.withOpacity(0.3),
-                        blurRadius: 12,
-                        offset: const Offset(0, 4),
-                      ),
-                    ],
-                  ),
-                  child: Text(
-                    'Current',
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ),
-              SizedBox(width: 16.w),
-              // Expand/collapse button
-              GestureDetector(
-                onTap: _toggleExpand,
-                child: AnimatedRotation(
-                  turns: _isExpanded ? 0.5 : 0,
-                  duration: const Duration(milliseconds: 300),
-                  child: Container(
-                    padding: EdgeInsets.all(12.w),
-                    decoration: BoxDecoration(
-                      color: AppTheme.primaryColor.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(12.r),
-                    ),
-                    child: Icon(
-                      Icons.expand_more,
-                      color: AppTheme.primaryColor,
-                      size: 24.r,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ).animate().fadeIn(duration: 500.ms, delay: (widget.index * 200).ms),
-
-          SizedBox(height: 16.h),
-
-          // Location and duration
-          Wrap(
-            spacing: 16.w,
-            runSpacing: 8.h,
-            children: [
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(
-                    Icons.location_on_outlined,
-                    size: 16.r,
-                    color: AppTheme.textSecondaryColor,
-                  ),
-                  SizedBox(width: 6.w),
-                  Text(
-                    widget.experience.location,
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      color: AppTheme.textSecondaryColor,
-                      fontSize: 14.sp,
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(
-                    Icons.calendar_today_outlined,
-                    size: 16.r,
-                    color: AppTheme.textSecondaryColor,
-                  ),
-                  SizedBox(width: 6.w),
-                  Text(
-                    '${widget.experience.startDate} - ${widget.experience.endDate ?? 'Present'}',
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      color: AppTheme.textSecondaryColor,
-                      fontSize: 14.sp,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ).animate().fadeIn(
-                duration: 500.ms,
-                delay: (widget.index * 200 + 100).ms,
-              ),
-
-          SizedBox(height: 24.h),
-
-          // Expandable content
-          SizeTransition(
-            sizeFactor: _expandAnimation,
-            axisAlignment: -1,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Responsibilities
-                Text(
-                  'Responsibilities',
-                  style: theme.textTheme.titleSmall?.copyWith(
-                    fontWeight: FontWeight.w700,
-                    color: AppTheme.textColor,
-                  ),
-                ),
-                const SizedBox(height: 12),
-                ...widget.experience.responsibilities.map((responsibility) {
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.only(top: 6),
-                          width: 6,
-                          height: 6,
-                          decoration: BoxDecoration(
-                            color: AppTheme.primaryColor,
-                            shape: BoxShape.circle,
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: Text(
-                            responsibility,
-                            style: theme.textTheme.bodyMedium?.copyWith(
-                              color: AppTheme.textSecondaryColor,
-                              height: 1.5,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                }).toList(),
-
-                const SizedBox(height: 24),
-
-                // Achievements
-                Text(
-                  'Key Achievements',
-                  style: theme.textTheme.titleSmall?.copyWith(
-                    fontWeight: FontWeight.w700,
-                    color: AppTheme.textColor,
-                  ),
-                ),
-                const SizedBox(height: 12),
-                ...widget.experience.achievements.map((achievement) {
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Icon(
-                          Icons.star,
-                          size: 18,
-                          color: AppTheme.accentColor,
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: Text(
-                            achievement,
-                            style: theme.textTheme.bodyMedium?.copyWith(
-                              color: AppTheme.textSecondaryColor,
-                              fontStyle: FontStyle.italic,
-                              height: 1.5,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                }).toList(),
-              ],
-            ),
+    return Container(
+      width: cardWidth,
+      decoration: BoxDecoration(
+        color: AppTheme.cardColor,
+        borderRadius: BorderRadius.circular(20.r),
+        border: Border.all(
+          color: Colors.white.withOpacity(0.1),
+          width: 1,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 20,
+            offset: const Offset(0, 10),
           ),
         ],
       ),
-    ).animate().fadeIn(duration: 500.ms, delay: (widget.index * 200).ms).slideX(
+      child: Padding(
+        padding: EdgeInsets.all(24.w),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Company logo placeholder
+            Container(
+              width: 56.w,
+              height: 56.w,
+              decoration: BoxDecoration(
+                gradient: AppTheme.auroraGradient1,
+                borderRadius: BorderRadius.circular(14.r),
+              ),
+              child: Center(
+                child: Text(
+                  experience.company[0],
+                  style: theme.textTheme.headlineSmall?.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ),
+            ),
+
+            SizedBox(height: 20.h),
+
+            // Company name
+            Text(
+              experience.company,
+              style: theme.textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.w700,
+                color: AppTheme.textColor,
+                fontSize: 20.sp,
+              ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+
+            SizedBox(height: 8.h),
+
+            // Role
+            Text(
+              experience.role,
+              style: theme.textTheme.titleMedium?.copyWith(
+                color: AppTheme.primaryColor,
+                fontWeight: FontWeight.w600,
+                fontSize: 16.sp,
+              ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+
+            SizedBox(height: 16.h),
+
+            // Location and duration
+            Row(
+              children: [
+                Icon(
+                  Icons.location_on_outlined,
+                  size: 16.r,
+                  color: AppTheme.textSecondaryColor,
+                ),
+                SizedBox(width: 6.w),
+                Expanded(
+                  child: Text(
+                    experience.location,
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: AppTheme.textSecondaryColor,
+                      fontSize: 13.sp,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ],
+            ),
+
+            SizedBox(height: 8.h),
+
+            Row(
+              children: [
+                Icon(
+                  Icons.calendar_today_outlined,
+                  size: 16.r,
+                  color: AppTheme.textSecondaryColor,
+                ),
+                SizedBox(width: 6.w),
+                Expanded(
+                  child: Text(
+                    '${experience.startDate} - ${experience.endDate ?? 'Present'}',
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: AppTheme.textSecondaryColor,
+                      fontSize: 13.sp,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ],
+            ),
+
+            const Spacer(),
+
+            // Current badge
+            if (experience.isCurrent)
+              Container(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 12.w,
+                  vertical: 6.h,
+                ),
+                decoration: BoxDecoration(
+                  gradient: AppTheme.auroraGradient2,
+                  borderRadius: BorderRadius.circular(12.r),
+                ),
+                child: Text(
+                  'Current',
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 12.sp,
+                  ),
+                ),
+              ),
+          ],
+        ),
+      ),
+    ).animate().fadeIn(duration: 600.ms, delay: (index * 150).ms).slideX(
           begin: 0.2,
           end: 0,
-          duration: 500.ms,
         );
   }
 }

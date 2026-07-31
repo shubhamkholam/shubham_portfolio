@@ -97,7 +97,7 @@ class _PortfolioHomePageState extends State<PortfolioHomePage> {
                   child: AboutSection(),
                 ),
 
-                // Skills Section
+                // Skills Section (moved below About)
                 SliverToBoxAdapter(
                   key: _navItems[2].key,
                   child: SkillsSection(),
@@ -132,6 +132,63 @@ class _PortfolioHomePageState extends State<PortfolioHomePage> {
                   ),
                 ),
               ],
+            ),
+            // Sticky "Available for Work" Badge
+            Positioned(
+              top: 140,
+              left: 0,
+              right: 0,
+              child: Center(
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        AppTheme.primaryColor.withOpacity(0.9),
+                        AppTheme.secondaryColor.withOpacity(0.9),
+                      ],
+                    ),
+                    borderRadius: BorderRadius.circular(30),
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppTheme.primaryColor.withOpacity(0.3),
+                        blurRadius: 20,
+                        offset: const Offset(0, 8),
+                      ),
+                    ],
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        width: 10,
+                        height: 10,
+                        decoration: BoxDecoration(
+                          color: Colors.green,
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.green.withOpacity(0.5),
+                              blurRadius: 8,
+                              spreadRadius: 2,
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      const Text(
+                        'Available for Work',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
             // Floating Navbar
             Positioned(

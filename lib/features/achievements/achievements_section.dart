@@ -29,9 +29,9 @@ class AchievementsSection extends StatelessWidget {
   static final List<Achievement> achievements = [
     Achievement(label: 'Years of Experience', value: 6, icon: Icons.work),
     Achievement(label: 'Apps Published', value: 15, icon: Icons.apps),
-    Achievement(label: 'Happy Clients', value: 20, icon: Icons.people),
+    Achievement(label: 'Technologies Mastered', value: 20, icon: Icons.code),
     Achievement(
-      label: 'Projects Completed',
+      label: 'Projects Delivered',
       value: 30,
       icon: Icons.check_circle,
     ),

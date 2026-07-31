@@ -35,24 +35,34 @@ class _AnimatedMeshBackgroundState extends State<AnimatedMeshBackground>
   void _initBlobs() {
     _blobs = [
       BlobData(
-        color: AppTheme.primaryColor.withOpacity(0.3),
+        color: AppTheme.primaryColor.withOpacity(0.4),
+        size: 500,
+        position: const Offset(0.15, 0.25),
+      ),
+      BlobData(
+        color: AppTheme.secondaryColor.withOpacity(0.35),
+        size: 450,
+        position: const Offset(0.85, 0.15),
+      ),
+      BlobData(
+        color: AppTheme.accentColor.withOpacity(0.3),
         size: 400,
-        position: const Offset(0.2, 0.3),
+        position: const Offset(0.5, 0.75),
       ),
       BlobData(
-        color: AppTheme.secondaryColor.withOpacity(0.25),
+        color: AppTheme.pinkColor.withOpacity(0.25),
         size: 350,
-        position: const Offset(0.8, 0.2),
+        position: const Offset(0.1, 0.65),
       ),
       BlobData(
-        color: AppTheme.accentColor.withOpacity(0.2),
+        color: AppTheme.primaryColor.withOpacity(0.2),
         size: 300,
-        position: const Offset(0.5, 0.8),
+        position: const Offset(0.75, 0.85),
       ),
       BlobData(
-        color: AppTheme.pinkColor.withOpacity(0.15),
+        color: AppTheme.secondaryColor.withOpacity(0.15),
         size: 250,
-        position: const Offset(0.1, 0.7),
+        position: const Offset(0.3, 0.5),
       ),
     ];
 
@@ -61,7 +71,7 @@ class _AnimatedMeshBackgroundState extends State<AnimatedMeshBackground>
       (index) => AnimationController(
         vsync: this,
         duration: Duration(
-          milliseconds: 8000 + index * 2000,
+          milliseconds: 10000 + index * 1500,
         ),
       ),
     );
@@ -70,7 +80,7 @@ class _AnimatedMeshBackgroundState extends State<AnimatedMeshBackground>
       return Tween<double>(begin: 0, end: 1).animate(
         CurvedAnimation(
           parent: controller,
-          curve: Curves.easeInOut,
+          curve: Curves.easeInOutSine,
         ),
       );
     }).toList();

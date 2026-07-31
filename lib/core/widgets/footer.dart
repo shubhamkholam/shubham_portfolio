@@ -24,40 +24,60 @@ class Footer extends StatelessWidget {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(
-        vertical: isMobile ? 40 : 48,
-        horizontal: isMobile ? 20 : 24,
+        vertical: isMobile ? 60 : 80,
+        horizontal: isMobile ? 24 : 32,
       ),
       decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceVariant,
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            theme.colorScheme.surface,
+            theme.colorScheme.surfaceVariant.withOpacity(0.3),
+          ],
+        ),
       ),
       child: Column(
         children: [
           // Logo and tagline
           Column(
             children: [
-              Text(
-                'Shubham Kholam',
-                style: theme.textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: theme.colorScheme.primary,
+              ShaderMask(
+                shaderCallback: (bounds) => LinearGradient(
+                  colors: [
+                    theme.colorScheme.primary,
+                    theme.colorScheme.secondary,
+                  ],
+                ).createShader(
+                  bounds,
+                  textDirection: TextDirection.ltr,
+                ),
+                child: Text(
+                  'Shubham Kholam',
+                  style: theme.textTheme.headlineMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: isMobile ? 28.sp : 32.sp,
+                  ),
                 ),
               ).animate().fadeIn(duration: 600.ms),
-              const SizedBox(height: 8),
+              SizedBox(height: isMobile ? 12.h : 16.h),
               Text(
                 'Senior Flutter Developer',
-                style: theme.textTheme.bodyMedium?.copyWith(
+                style: theme.textTheme.bodyLarge?.copyWith(
                   color: theme.colorScheme.onSurface.withOpacity(0.7),
+                  fontSize: isMobile ? 16.sp : 18.sp,
                 ),
               ).animate().fadeIn(duration: 600.ms, delay: 200.ms),
             ],
           ),
 
-          SizedBox(height: isMobile ? 16 : 32),
+          SizedBox(height: isMobile ? 32.h : 48.h),
 
           // Navigation links
           Wrap(
-            spacing: isMobile ? 20 : 24,
-            runSpacing: isMobile ? 12 : 12,
+            spacing: isMobile ? 24 : 32,
+            runSpacing: isMobile ? 12 : 16,
             alignment: WrapAlignment.center,
             children: [
               _FooterLink(
@@ -93,7 +113,7 @@ class Footer extends StatelessWidget {
             ],
           ).animate().fadeIn(duration: 600.ms, delay: 300.ms),
 
-          SizedBox(height: isMobile ? 16.h : 32.h),
+          SizedBox(height: isMobile ? 32.h : 48.h),
 
           // Social links
           Row(
@@ -105,21 +125,21 @@ class Footer extends StatelessWidget {
                 label: 'LinkedIn',
                 isMobile: isMobile,
               ),
-              SizedBox(width: isMobile ? 12.w : 16.w),
+              SizedBox(width: isMobile ? 16.w : 24.w),
               _SocialIcon(
                 icon: Icons.code,
                 url: 'https://github.com/shubhamkholam',
                 label: 'GitHub',
                 isMobile: isMobile,
               ),
-              SizedBox(width: isMobile ? 12.w : 16.w),
+              SizedBox(width: isMobile ? 16.w : 24.w),
               _SocialIcon(
                 icon: Icons.email,
                 url: 'mailto:shubhamkholam@gmail.com',
                 label: 'Email',
                 isMobile: isMobile,
               ),
-              SizedBox(width: isMobile ? 12.w : 16.w),
+              SizedBox(width: isMobile ? 16.w : 24.w),
               _SocialIcon(
                 icon: Icons.chat,
                 url: 'https://wa.me/+917020939720',
@@ -129,25 +149,42 @@ class Footer extends StatelessWidget {
             ],
           ).animate().fadeIn(duration: 600.ms, delay: 400.ms),
 
-          SizedBox(height: isMobile ? 16.h : 32.h),
+          SizedBox(height: isMobile ? 32.h : 48.h),
+
+          // Divider
+          Container(
+            width: isMobile ? 200.w : 300.w,
+            height: 1,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  theme.colorScheme.primary.withOpacity(0.3),
+                  theme.colorScheme.secondary.withOpacity(0.3),
+                ],
+              ),
+            ),
+          ).animate().fadeIn(duration: 600.ms, delay: 500.ms),
+
+          SizedBox(height: isMobile ? 24.h : 32.h),
 
           // Copyright
           Text(
             '© 2026 Shubham Kholam. All rights reserved.',
             style: theme.textTheme.bodySmall?.copyWith(
               color: theme.colorScheme.onSurface.withOpacity(0.5),
-              fontSize: isMobile ? 11.sp : 13.sp,
+              fontSize: isMobile ? 12.sp : 14.sp,
             ),
-          ).animate().fadeIn(duration: 600.ms, delay: 500.ms),
+          ).animate().fadeIn(duration: 600.ms, delay: 600.ms),
 
-          const SizedBox(height: 8),
+          SizedBox(height: isMobile ? 8.h : 12.h),
 
           Text(
             'Built with Flutter ❤️',
             style: theme.textTheme.bodySmall?.copyWith(
               color: theme.colorScheme.onSurface.withOpacity(0.5),
+              fontSize: isMobile ? 12.sp : 14.sp,
             ),
-          ).animate().fadeIn(duration: 600.ms, delay: 600.ms),
+          ).animate().fadeIn(duration: 600.ms, delay: 700.ms),
         ],
       ),
     );
@@ -216,16 +253,17 @@ class _FooterLink extends StatelessWidget {
 
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(4.r),
+      borderRadius: BorderRadius.circular(8.r),
       child: Padding(
         padding: EdgeInsets.symmetric(
-            horizontal: isMobile ? 8.w : 8.w, vertical: isMobile ? 6.h : 4.h),
+            horizontal: isMobile ? 12.w : 16.w,
+            vertical: isMobile ? 8.h : 10.h),
         child: Text(
           label,
           style: theme.textTheme.bodyMedium?.copyWith(
             color: theme.colorScheme.onSurface.withOpacity(0.7),
-            fontSize: isMobile ? 15.sp : 15.sp,
-            fontWeight: isMobile ? FontWeight.w500 : FontWeight.normal,
+            fontSize: isMobile ? 15.sp : 16.sp,
+            fontWeight: FontWeight.w500,
           ),
         ),
       ),
@@ -262,12 +300,17 @@ class _SocialIcon extends StatelessWidget {
       message: label,
       child: InkWell(
         onTap: _launchUrl,
-        borderRadius: BorderRadius.circular(8.r),
+        borderRadius: BorderRadius.circular(12.r),
         child: Container(
-          padding: EdgeInsets.all(isMobile ? 12.w : 12.w),
+          padding: EdgeInsets.all(isMobile ? 14.w : 16.w),
           decoration: BoxDecoration(
-            color: theme.colorScheme.surface,
-            borderRadius: BorderRadius.circular(8.r),
+            gradient: LinearGradient(
+              colors: [
+                theme.colorScheme.primary.withOpacity(0.1),
+                theme.colorScheme.secondary.withOpacity(0.1),
+              ],
+            ),
+            borderRadius: BorderRadius.circular(12.r),
             border: Border.all(
               color: theme.colorScheme.outline.withOpacity(0.3),
             ),
@@ -275,7 +318,7 @@ class _SocialIcon extends StatelessWidget {
           child: Icon(
             icon,
             color: theme.colorScheme.primary,
-            size: isMobile ? 22.r : 20.r,
+            size: isMobile ? 24.r : 26.r,
           ),
         ),
       ),

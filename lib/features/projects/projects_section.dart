@@ -67,29 +67,43 @@ class _ProjectsSectionState extends State<ProjectsSection> {
           // Projects grid with premium cards
           LayoutBuilder(
             builder: (context, constraints) {
-              final crossAxisCount = size.width > 1200
-                  ? 3
-                  : size.width > 800
-                      ? 2
-                      : 1;
+              final isDesktop = size.width > 1200;
 
-              return GridView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: crossAxisCount,
-                  childAspectRatio: 0.85,
-                  crossAxisSpacing: 32.w,
-                  mainAxisSpacing: 32.h,
-                ),
-                itemCount: filteredProjects.length,
-                itemBuilder: (context, index) {
-                  return _PremiumProjectCard(
-                    project: filteredProjects[index],
-                    index: index,
-                  );
-                },
-              );
+              if (isDesktop) {
+                // Desktop: Horizontal scrolling cards
+                return SizedBox(
+                  height: 500.h,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: filteredProjects.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: EdgeInsets.only(right: 32.w),
+                        child: SizedBox(
+                          width: 420.w,
+                          child: _PremiumProjectCard(
+                            project: filteredProjects[index],
+                            index: index,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                );
+              } else {
+                // Mobile: Vertical cards
+                return Column(
+                  children: filteredProjects.asMap().entries.map((entry) {
+                    return Padding(
+                      padding: EdgeInsets.only(bottom: 24.h),
+                      child: _PremiumProjectCard(
+                        project: entry.value,
+                        index: entry.key,
+                      ),
+                    );
+                  }).toList(),
+                );
+              }
             },
           ),
         ],
@@ -240,15 +254,18 @@ class _PremiumProjectCardState extends State<_PremiumProjectCard>
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final size = MediaQuery.of(context).size;
+    final isDesktop = size.width > 1200;
 
     return GestureDetector(
-      onTap: () {}, // Remove MouseRegion for mobile touch
+      onTap: () {},
       child: AnimatedBuilder(
         animation: _controller,
         builder: (context, child) {
           return Transform.scale(
             scale: _scaleAnimation.value,
             child: Container(
+              width: isDesktop ? 420.w : double.infinity,
               decoration: BoxDecoration(
                 color: AppTheme.cardColor,
                 borderRadius: BorderRadius.circular(24.r),
@@ -276,42 +293,40 @@ class _PremiumProjectCardState extends State<_PremiumProjectCard>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Project screenshot
-                  Expanded(
-                    flex: 3,
-                    child: Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [
-                            AppTheme.primaryColor.withOpacity(0.15),
-                            AppTheme.secondaryColor.withOpacity(0.15),
-                          ],
-                        ),
-                        borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(24.r),
-                        ),
+                  Container(
+                    width: double.infinity,
+                    height: 200.h,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          AppTheme.primaryColor.withOpacity(0.15),
+                          AppTheme.secondaryColor.withOpacity(0.15),
+                        ],
                       ),
-                      child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.apps_outlined,
-                              size: 48.r,
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(24.r),
+                      ),
+                    ),
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.apps_outlined,
+                            size: 48.r,
+                            color: AppTheme.primaryColor.withOpacity(0.6),
+                          ),
+                          SizedBox(height: 12.h),
+                          Text(
+                            'Project Preview',
+                            style: theme.textTheme.bodySmall?.copyWith(
                               color: AppTheme.primaryColor.withOpacity(0.6),
+                              fontSize: 14.sp,
                             ),
-                            SizedBox(height: 12.h),
-                            Text(
-                              'Project Preview',
-                              style: theme.textTheme.bodySmall?.copyWith(
-                                color: AppTheme.primaryColor.withOpacity(0.6),
-                                fontSize: 14.sp,
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -333,7 +348,7 @@ class _PremiumProjectCardState extends State<_PremiumProjectCard>
                           overflow: TextOverflow.ellipsis,
                         ),
 
-                        SizedBox(height: 10.h),
+                        SizedBox(height: 12.h),
 
                         // Description
                         Text(
@@ -341,8 +356,9 @@ class _PremiumProjectCardState extends State<_PremiumProjectCard>
                           style: theme.textTheme.bodySmall?.copyWith(
                             color: AppTheme.textSecondaryColor,
                             fontSize: 16.sp,
+                            height: 1.5,
                           ),
-                          maxLines: 2,
+                          maxLines: 3,
                           overflow: TextOverflow.ellipsis,
                         ),
 
@@ -379,7 +395,7 @@ class _PremiumProjectCardState extends State<_PremiumProjectCard>
                           }).toList(),
                         ),
 
-                        SizedBox(height: 16.h),
+                        SizedBox(height: 20.h),
 
                         // Action buttons
                         Row(

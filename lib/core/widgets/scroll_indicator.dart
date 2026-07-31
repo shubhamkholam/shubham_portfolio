@@ -28,21 +28,23 @@ class ScrollIndicator extends StatelessWidget {
                 color: Theme.of(context).colorScheme.primary,
                 shape: BoxShape.circle,
               ),
-            ).animate(
-              onPlay: (controller) => controller.repeat(),
-            ).moveY(
-              begin: 0,
-              end: 16,
-              duration: 1500.ms,
-              curve: Curves.easeInOut,
-            ),
+            )
+                .animate(
+                  onPlay: (controller) => controller.repeat(),
+                )
+                .moveY(
+                  begin: 0,
+                  end: 16,
+                  duration: 1200.ms,
+                  curve: Curves.easeInOut,
+                ),
           ),
-        ).animate().fadeIn(duration: 800.ms).slideY(begin: 0.2, end: 0),
+        ).animate().fadeIn(duration: 400.ms).slideY(begin: 0.2, end: 0),
         const SizedBox(height: 8),
         Text(
           'Scroll Down',
           style: Theme.of(context).textTheme.bodySmall,
-        ).animate().fadeIn(duration: 800.ms, delay: 200.ms),
+        ).animate().fadeIn(duration: 400.ms, delay: 100.ms),
       ],
     );
   }

@@ -18,22 +18,23 @@ class HeroSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final size = MediaQuery.of(context).size;
 
     return SizedBox(
-      height: 1.4.sh,
+      height: size.height,
       child: Center(
         child: SingleChildScrollView(
-          padding: EdgeInsets.only(left: 32.w, right: 32.w, top: 100.h),
+          padding: EdgeInsets.only(left: 32.w, right: 32.w, top: 80.h),
           child: LayoutBuilder(
             builder: (context, constraints) {
               final isDesktop = constraints.maxWidth > 1200.w;
 
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   if (isDesktop) ...[
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         // Left side - Text content
@@ -41,7 +42,7 @@ class HeroSection extends StatelessWidget {
                           flex: 1,
                           child: _buildTextContent(context, theme),
                         ),
-                        SizedBox(width: 64.w),
+                        SizedBox(width: 80.w),
                         // Right side - Profile image with glow
                         Expanded(
                           flex: 1,
@@ -52,16 +53,16 @@ class HeroSection extends StatelessWidget {
                   ] else ...[
                     // Mobile/Tablet - Stacked layout
                     _buildProfileImage(context, theme),
-                    SizedBox(height: 48.h),
+                    SizedBox(height: 40.h),
                     _buildTextContent(context, theme),
                   ],
-                  SizedBox(height: 64.h),
+                  SizedBox(height: 48.h),
                   // CTA Buttons
                   _buildCTAButtons(context, theme),
-                  SizedBox(height: 48.h),
+                  SizedBox(height: 40.h),
                   // Social icons
                   _buildSocialIcons(context, theme),
-                  SizedBox(height: 48.h),
+                  SizedBox(height: 40.h),
                   // Scroll indicator
                   const ScrollIndicator(),
                 ],
@@ -83,11 +84,11 @@ class HeroSection extends StatelessWidget {
           style: theme.textTheme.headlineMedium?.copyWith(
             color: AppTheme.textSecondaryColor,
             fontWeight: FontWeight.w500,
-            fontSize: 24.sp,
+            fontSize: 22.sp,
           ),
         ).animate().fadeIn(duration: 800.ms).slideX(begin: -0.3),
 
-        SizedBox(height: 16.h),
+        SizedBox(height: 12.h),
 
         // Name with gradient text
         ShaderMask(
@@ -101,7 +102,7 @@ class HeroSection extends StatelessWidget {
               color: Colors.white,
               fontWeight: FontWeight.w800,
               height: 1.1,
-              fontSize: 48.sp,
+              fontSize: 56.sp,
             ),
           )
               .animate()
@@ -109,37 +110,54 @@ class HeroSection extends StatelessWidget {
               .slideX(begin: -0.3),
         ),
 
-        SizedBox(height: 24.h),
+        SizedBox(height: 20.h),
 
         // Animated role text
         SizedBox(
-          height: 48.h,
+          height: 56.h,
           child: DefaultTextStyle(
             style: theme.textTheme.headlineSmall!.copyWith(
-              color: AppTheme.textSecondaryColor,
+              color: AppTheme.primaryColor,
               fontWeight: FontWeight.w600,
-              fontSize: 20.sp,
+              fontSize: 24.sp,
             ),
             child: AnimatedTextKit(
               animatedTexts: [
-                TypewriterAnimatedText('Senior Flutter Developer'),
-                TypewriterAnimatedText('Cross-Platform Expert'),
-                TypewriterAnimatedText('Clean Architecture Advocate'),
-                TypewriterAnimatedText('Mobile App Architect'),
+                TypewriterAnimatedText(
+                  'Senior Flutter Developer',
+                  speed: const Duration(milliseconds: 80),
+                  cursor: '_',
+                ),
+                TypewriterAnimatedText(
+                  'Cross-Platform Expert',
+                  speed: const Duration(milliseconds: 80),
+                  cursor: '_',
+                ),
+                TypewriterAnimatedText(
+                  'Clean Architecture Advocate',
+                  speed: const Duration(milliseconds: 80),
+                  cursor: '_',
+                ),
+                TypewriterAnimatedText(
+                  'Mobile App Architect',
+                  speed: const Duration(milliseconds: 80),
+                  cursor: '_',
+                ),
               ],
               repeatForever: true,
-              pause: const Duration(milliseconds: 2000),
+              pause: const Duration(milliseconds: 3000),
               displayFullTextOnTap: false,
               stopPauseOnTap: false,
+              isRepeatingAnimation: true,
             ),
           ),
         ).animate().fadeIn(duration: 800.ms, delay: 400.ms),
 
-        SizedBox(height: 32.h),
+        SizedBox(height: 28.h),
 
         // Tagline
         SizedBox(
-          width: 600.w,
+          width: 550.w,
           child: Text(
             'Building beautiful, scalable, high-performance cross-platform applications using Flutter and modern development practices.',
             style: theme.textTheme.bodyLarge?.copyWith(
@@ -188,7 +206,7 @@ class HeroSection extends StatelessWidget {
 
   Widget _buildCTAButtons(BuildContext context, ThemeData theme) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         PremiumButton(
           text: 'Download Resume',
