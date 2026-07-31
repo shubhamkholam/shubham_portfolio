@@ -244,14 +244,6 @@ class AppTheme {
           statusBarBrightness: Brightness.light,
         ),
       ),
-      cardTheme: CardThemeData(
-        elevation: 0,
-        color: _lightCard,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24),
-        ),
-        clipBehavior: Clip.antiAlias,
-      ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           elevation: 0,
@@ -303,14 +295,6 @@ class AppTheme {
         systemOverlayStyle: const SystemUiOverlayStyle(
           statusBarBrightness: Brightness.dark,
         ),
-      ),
-      cardTheme: CardThemeData(
-        elevation: 0,
-        color: _darkCard,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24),
-        ),
-        clipBehavior: Clip.antiAlias,
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
