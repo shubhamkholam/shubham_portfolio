@@ -51,10 +51,15 @@ class _PremiumTimeline extends StatelessWidget {
         final experience = entry.value;
         final isLast = index == experiences.length - 1;
 
-        return _PremiumTimelineItem(
-          experience: experience,
-          isLast: isLast,
-          index: index,
+        return Column(
+          children: [
+            _PremiumTimelineItem(
+              experience: experience,
+              isLast: isLast,
+              index: index,
+            ),
+            if (!isLast) const SizedBox(height: 32),
+          ],
         );
       }).toList(),
     );

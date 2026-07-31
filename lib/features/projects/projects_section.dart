@@ -377,7 +377,7 @@ class _PremiumProjectCardState extends State<_PremiumProjectCard>
                           children: [
                             if (widget.project.playStoreLink != null)
                               _ActionButton(
-                                icon: Icons.play_circle_outline,
+                                icon: Icons.android,
                                 label: 'Play Store',
                                 onTap: () =>
                                     _launchUrl(widget.project.playStoreLink!),
@@ -387,7 +387,7 @@ class _PremiumProjectCardState extends State<_PremiumProjectCard>
                               const SizedBox(width: 12),
                             if (widget.project.appStoreLink != null)
                               _ActionButton(
-                                icon: Icons.phone_iphone,
+                                icon: Icons.apple_sharp,
                                 label: 'App Store',
                                 onTap: () =>
                                     _launchUrl(widget.project.appStoreLink!),
@@ -410,9 +410,13 @@ class _PremiumProjectCardState extends State<_PremiumProjectCard>
   }
 
   Future<void> _launchUrl(String url) async {
+    debugPrint('Launching URL: $url');
     final uri = Uri.parse(url);
     if (await canLaunchUrl(uri)) {
-      await launchUrl(uri);
+      debugPrint('Can launch URL, launching...');
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } else {
+      debugPrint('Cannot launch URL: $url');
     }
   }
 }
