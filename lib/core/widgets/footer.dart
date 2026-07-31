@@ -28,15 +28,15 @@ class Footer extends StatelessWidget {
         horizontal: isMobile ? 24 : 32,
       ),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            theme.colorScheme.surface,
-            theme.colorScheme.surfaceVariant.withOpacity(0.3),
-          ],
-        ),
-      ),
+          // gradient: LinearGradient(
+          //   begin: Alignment.topCenter,
+          //   end: Alignment.bottomCenter,
+          //   colors: [
+          //     theme.colorScheme.surface,
+          //     theme.colorScheme.surfaceVariant.withOpacity(0.3),
+          //   ],
+          // ),
+          ),
       child: Column(
         children: [
           // Logo and tagline
