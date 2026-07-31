@@ -18,10 +18,10 @@ class HeroSection extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     return SizedBox(
-      height: size.height * 0.95,
+      height: size.height * 0.99,
       child: Center(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 32),
+          padding: const EdgeInsets.only(left: 32, right: 32, top: 100),
           child: LayoutBuilder(
             builder: (context, constraints) {
               final isDesktop = constraints.maxWidth > 1200;
