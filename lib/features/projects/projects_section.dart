@@ -375,22 +375,22 @@ class _PremiumProjectCardState extends State<_PremiumProjectCard>
                         // Action buttons
                         Row(
                           children: [
-                            if (widget.project.githubUrl != null)
+                            if (widget.project.playStoreLink != null)
                               _ActionButton(
-                                icon: Icons.code,
-                                label: 'GitHub',
+                                icon: Icons.play_circle_outline,
+                                label: 'Play Store',
                                 onTap: () =>
-                                    _launchUrl(widget.project.githubUrl!),
+                                    _launchUrl(widget.project.playStoreLink!),
                               ),
-                            if (widget.project.githubUrl != null &&
-                                widget.project.liveDemoUrl != null)
+                            if (widget.project.playStoreLink != null &&
+                                widget.project.appStoreLink != null)
                               const SizedBox(width: 12),
-                            if (widget.project.liveDemoUrl != null)
+                            if (widget.project.appStoreLink != null)
                               _ActionButton(
-                                icon: Icons.play_arrow,
-                                label: 'Demo',
+                                icon: Icons.phone_iphone,
+                                label: 'App Store',
                                 onTap: () =>
-                                    _launchUrl(widget.project.liveDemoUrl!),
+                                    _launchUrl(widget.project.appStoreLink!),
                               ),
                           ],
                         ),

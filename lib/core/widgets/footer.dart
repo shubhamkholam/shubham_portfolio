@@ -107,7 +107,7 @@ class Footer extends StatelessWidget {
               const SizedBox(width: 16),
               _SocialIcon(
                 icon: Icons.chat,
-                url: 'https://wa.me/917020939720',
+                url: 'https://wa.me/+917020939720',
                 label: 'WhatsApp',
               ),
             ],
@@ -117,7 +117,7 @@ class Footer extends StatelessWidget {
 
           // Copyright
           Text(
-            '© 2024 Shubham Kholam. All rights reserved.',
+            '© 2026 Shubham Kholam. All rights reserved.',
             style: theme.textTheme.bodySmall?.copyWith(
               color: theme.colorScheme.onSurface.withOpacity(0.5),
             ),
