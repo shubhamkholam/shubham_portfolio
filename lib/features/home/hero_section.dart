@@ -165,10 +165,13 @@ class HeroSection extends StatelessWidget {
                 shape: BoxShape.circle,
                 color: AppTheme.cardColor,
               ),
-              child: Icon(
-                Icons.person,
-                size: 150,
-                color: AppTheme.primaryColor,
+              child: ClipOval(
+                child: Image.asset(
+                  'assets/images/shubham.png',
+                  width: 150,
+                  height: 150,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),

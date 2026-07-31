@@ -84,10 +84,14 @@ class AboutSection extends StatelessWidget {
           borderRadius: BorderRadius.circular(24),
         ),
         child: Center(
-          child: Icon(
-            Icons.person,
-            size: 120,
-            color: AppTheme.primaryColor.withOpacity(0.5),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(24),
+            child: Image.asset(
+              'assets/images/shubham.png',
+              width: 300,
+              height: 400,
+              fit: BoxFit.cover,
+            ),
           ),
         ),
       ),
