@@ -103,13 +103,12 @@ class _ContactSectionState extends State<ContactSection> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final isMobile = size.width < 768;
 
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(
-        horizontal: isMobile ? 16 : (size.width > 1200 ? 120 : 24),
-        vertical: isMobile ? 60 : 100,
+        horizontal: size.width > 1200 ? 120 : 24,
+        vertical: 100,
       ),
       child: Column(
         children: [
@@ -117,7 +116,7 @@ class _ContactSectionState extends State<ContactSection> {
             title: 'Contact',
             subtitle: 'Let\'s create something amazing together',
           ),
-          SizedBox(height: isMobile ? 32 : 64),
+          SizedBox(height: 64),
           LayoutBuilder(
             builder: (context, constraints) {
               final isDesktop = constraints.maxWidth > 900;
@@ -145,7 +144,7 @@ class _ContactSectionState extends State<ContactSection> {
                 return Column(
                   children: [
                     _buildContactInfo(context),
-                    SizedBox(height: isMobile ? 32 : 48),
+                    SizedBox(height: 48),
                     _buildContactForm(context),
                   ],
                 );
@@ -300,7 +299,7 @@ class _ContactSectionState extends State<ContactSection> {
 
   Widget _buildContactForm(BuildContext context) {
     return PremiumGlassCard(
-      padding: const EdgeInsets.all(40),
+      padding: EdgeInsets.all(40),
       child: Form(
         key: _formKey,
         child: Column(
@@ -317,7 +316,7 @@ class _ContactSectionState extends State<ContactSection> {
               },
               delay: 200,
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: 24),
             _buildTextField(
               controller: _emailController,
               label: 'Email',
@@ -334,7 +333,7 @@ class _ContactSectionState extends State<ContactSection> {
               },
               delay: 300,
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: 24),
             _buildTextField(
               controller: _subjectController,
               label: 'Subject',
@@ -347,7 +346,7 @@ class _ContactSectionState extends State<ContactSection> {
               },
               delay: 400,
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: 24),
             _buildTextField(
               controller: _messageController,
               label: 'Message',
@@ -361,7 +360,7 @@ class _ContactSectionState extends State<ContactSection> {
               },
               delay: 500,
             ),
-            const SizedBox(height: 32),
+            SizedBox(height: 32),
             PremiumButton(
               text: _isSubmitting ? 'Sending...' : 'Send Message',
               icon: _isSubmitting ? null : Icons.send,
@@ -387,7 +386,7 @@ class _ContactSectionState extends State<ContactSection> {
       controller: controller,
       decoration: InputDecoration(
         labelText: label,
-        prefixIcon: Icon(icon),
+        prefixIcon: Icon(icon, size: 24),
         filled: true,
         fillColor: Colors.white.withOpacity(0.05),
         border: OutlineInputBorder(
@@ -401,6 +400,10 @@ class _ContactSectionState extends State<ContactSection> {
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(color: AppTheme.primaryColor, width: 2),
+        ),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 16,
         ),
       ),
       keyboardType: keyboardType,

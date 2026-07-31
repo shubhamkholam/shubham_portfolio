@@ -50,6 +50,7 @@ dependencies:
   visibility_detector: ^0.4.0+2
   flutter_svg: ^2.0.10+1
   http: ^1.2.0
+  flutter_screenutil: ^5.9.0
   
   # Routing
   go_router: ^14.2.0

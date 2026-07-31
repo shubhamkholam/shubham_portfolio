@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/widgets/section_header.dart';
 import '../../core/widgets/premium_glass_card.dart';
@@ -61,7 +62,7 @@ class _SkillsSectionState extends State<SkillsSection> {
             }).toList(),
           ),
 
-          const SizedBox(height: 64),
+          SizedBox(height: 64.h),
 
           // Skills grid with floating bubbles
           LayoutBuilder(

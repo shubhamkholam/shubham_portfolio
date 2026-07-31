@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'dart:html' as html;
 import '../../core/theme/app_theme.dart';
 import '../../core/widgets/section_header.dart';
@@ -20,7 +21,6 @@ class _ProjectsSectionState extends State<ProjectsSection> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final isMobile = size.width < 768;
 
     final categories = ['All', ...ProjectsData.categories];
     final filteredProjects = _selectedCategory == 'All'
@@ -30,8 +30,8 @@ class _ProjectsSectionState extends State<ProjectsSection> {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(
-        horizontal: isMobile ? 16 : (size.width > 1200 ? 120 : 24),
-        vertical: isMobile ? 60 : 100,
+        horizontal: size.width > 1200 ? 120.w : 24.w,
+        vertical: 100.h,
       ),
       child: Column(
         children: [
@@ -78,9 +78,9 @@ class _ProjectsSectionState extends State<ProjectsSection> {
                 physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: crossAxisCount,
-                  childAspectRatio: isMobile ? 0.75 : 0.85,
-                  crossAxisSpacing: isMobile ? 16 : 32,
-                  mainAxisSpacing: isMobile ? 16 : 32,
+                  childAspectRatio: 0.85,
+                  crossAxisSpacing: 32.w,
+                  mainAxisSpacing: 32.h,
                 ),
                 itemCount: filteredProjects.length,
                 itemBuilder: (context, index) {
@@ -241,15 +241,8 @@ class _PremiumProjectCardState extends State<_PremiumProjectCard>
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return MouseRegion(
-      onEnter: (_) {
-        setState(() => _isHovered = true);
-        _controller.forward();
-      },
-      onExit: (_) {
-        setState(() => _isHovered = false);
-        _controller.reverse();
-      },
+    return GestureDetector(
+      onTap: () {}, // Remove MouseRegion for mobile touch
       child: AnimatedBuilder(
         animation: _controller,
         builder: (context, child) {
@@ -258,7 +251,7 @@ class _PremiumProjectCardState extends State<_PremiumProjectCard>
             child: Container(
               decoration: BoxDecoration(
                 color: AppTheme.cardColor,
-                borderRadius: BorderRadius.circular(24),
+                borderRadius: BorderRadius.circular(24.r),
                 border: Border.all(
                   color: Colors.white.withOpacity(0.1),
                   width: 1,
@@ -296,14 +289,14 @@ class _PremiumProjectCardState extends State<_PremiumProjectCard>
                             AppTheme.secondaryColor.withOpacity(0.2),
                           ],
                         ),
-                        borderRadius: const BorderRadius.vertical(
-                          top: Radius.circular(24),
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(24.r),
                         ),
                       ),
                       child: Center(
                         child: Icon(
                           Icons.image_outlined,
-                          size: 64,
+                          size: 64.r,
                           color: AppTheme.primaryColor.withOpacity(0.5),
                         ),
                       ),
@@ -311,7 +304,7 @@ class _PremiumProjectCardState extends State<_PremiumProjectCard>
                   ),
 
                   Padding(
-                    padding: const EdgeInsets.all(24),
+                    padding: EdgeInsets.all(24.w),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -321,39 +314,41 @@ class _PremiumProjectCardState extends State<_PremiumProjectCard>
                           style: theme.textTheme.titleMedium?.copyWith(
                             fontWeight: FontWeight.w700,
                             color: AppTheme.textColor,
+                            fontSize: 18.sp,
                           ),
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                         ),
 
-                        const SizedBox(height: 8),
+                        SizedBox(height: 8.h),
 
                         // Description
                         Text(
                           widget.project.description,
                           style: theme.textTheme.bodySmall?.copyWith(
                             color: AppTheme.textSecondaryColor,
+                            fontSize: 14.sp,
                           ),
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                         ),
 
-                        const SizedBox(height: 16),
+                        SizedBox(height: 16.h),
 
                         // Tech stack chips
                         Wrap(
-                          spacing: 8,
-                          runSpacing: 8,
+                          spacing: 8.w,
+                          runSpacing: 8.h,
                           children:
                               widget.project.techStack.take(4).map((tech) {
                             return Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 12,
-                                vertical: 6,
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 12.w,
+                                vertical: 6.h,
                               ),
                               decoration: BoxDecoration(
                                 color: AppTheme.primaryColor.withOpacity(0.1),
-                                borderRadius: BorderRadius.circular(12),
+                                borderRadius: BorderRadius.circular(12.r),
                                 border: Border.all(
                                   color: AppTheme.primaryColor.withOpacity(0.2),
                                   width: 1,
@@ -364,14 +359,14 @@ class _PremiumProjectCardState extends State<_PremiumProjectCard>
                                 style: theme.textTheme.bodySmall?.copyWith(
                                   color: AppTheme.primaryColor,
                                   fontWeight: FontWeight.w500,
-                                  fontSize: 11,
+                                  fontSize: 12.sp,
                                 ),
                               ),
                             );
                           }).toList(),
                         ),
 
-                        const SizedBox(height: 16),
+                        SizedBox(height: 16.h),
 
                         // Action buttons
                         Row(
@@ -382,16 +377,18 @@ class _PremiumProjectCardState extends State<_PremiumProjectCard>
                                 label: 'Play Store',
                                 onTap: () =>
                                     _launchUrl(widget.project.playStoreLink!),
+                                isMobile: false,
                               ),
                             if (widget.project.playStoreLink != null &&
                                 widget.project.appStoreLink != null)
-                              const SizedBox(width: 12),
+                              SizedBox(width: 12.w),
                             if (widget.project.appStoreLink != null)
                               _ActionButton(
                                 icon: Icons.apple_sharp,
                                 label: 'App Store',
                                 onTap: () =>
                                     _launchUrl(widget.project.appStoreLink!),
+                                isMobile: false,
                               ),
                           ],
                         ),
@@ -422,11 +419,13 @@ class _ActionButton extends StatefulWidget {
   final IconData icon;
   final String label;
   final VoidCallback onTap;
+  final bool isMobile;
 
   const _ActionButton({
     required this.icon,
     required this.label,
     required this.onTap,
+    this.isMobile = false,
   });
 
   @override
@@ -461,33 +460,28 @@ class _ActionButtonState extends State<_ActionButton>
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return MouseRegion(
-      onEnter: (_) {
-        setState(() => _isHovered = true);
-        _controller.forward();
-      },
-      onExit: (_) {
-        setState(() => _isHovered = false);
-        _controller.reverse();
-      },
-      cursor: SystemMouseCursors.click,
+    return GestureDetector(
+      onTap: widget.onTap,
       child: AnimatedBuilder(
         animation: _controller,
         builder: (context, child) {
           return Transform.scale(
             scale: _scaleAnimation.value,
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              padding: EdgeInsets.symmetric(
+                horizontal: 16.w,
+                vertical: 10.h,
+              ),
               decoration: BoxDecoration(
-                color: _isHovered
-                    ? AppTheme.primaryColor.withOpacity(0.1)
-                    : Colors.white.withOpacity(0.05),
-                borderRadius: BorderRadius.circular(12),
+                color:
+                    _isHovered ? null : AppTheme.primaryColor.withOpacity(0.1),
+                gradient: _isHovered ? AppTheme.auroraGradient1 : null,
+                borderRadius: BorderRadius.circular(12.r),
                 border: Border.all(
                   color: _isHovered
-                      ? AppTheme.primaryColor.withOpacity(0.3)
-                      : Colors.white.withOpacity(0.1),
-                  width: 1,
+                      ? Colors.transparent
+                      : AppTheme.primaryColor.withOpacity(0.3),
+                  width: 1.5,
                 ),
               ),
               child: Row(
@@ -495,19 +489,16 @@ class _ActionButtonState extends State<_ActionButton>
                 children: [
                   Icon(
                     widget.icon,
-                    size: 16,
-                    color: _isHovered
-                        ? AppTheme.primaryColor
-                        : AppTheme.textSecondaryColor,
+                    size: 18.r,
+                    color: _isHovered ? Colors.white : AppTheme.primaryColor,
                   ),
-                  const SizedBox(width: 8),
+                  SizedBox(width: 8.w),
                   Text(
                     widget.label,
                     style: theme.textTheme.bodySmall?.copyWith(
-                      color: _isHovered
-                          ? AppTheme.primaryColor
-                          : AppTheme.textSecondaryColor,
-                      fontWeight: FontWeight.w500,
+                      color: _isHovered ? Colors.white : AppTheme.primaryColor,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 13.sp,
                     ),
                   ),
                 ],

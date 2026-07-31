@@ -98,6 +98,12 @@
       "languageVersion": "3.5"
     },
     {
+      "name": "flutter_screenutil",
+      "rootUri": "file:///Users/shubham/.pub-cache/hosted/pub.dev/flutter_screenutil-5.9.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
       "name": "flutter_shaders",
       "rootUri": "file:///Users/shubham/.pub-cache/hosted/pub.dev/flutter_shaders-0.1.3",
       "packageUri": "lib/",

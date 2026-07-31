@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/widgets/section_header.dart';
 import '../../core/widgets/premium_glass_card.dart';
@@ -39,13 +40,12 @@ class AchievementsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final isMobile = size.width < 768;
 
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(
-        horizontal: isMobile ? 16 : (size.width > 1200 ? 120 : 24),
-        vertical: isMobile ? 60 : 100,
+        horizontal: size.width > 1200 ? 120.w : 24.w,
+        vertical: 100.h,
       ),
       child: Column(
         children: [
@@ -54,7 +54,7 @@ class AchievementsSection extends StatelessWidget {
             subtitle: 'Numbers that speak for themselves',
           ),
 
-          const SizedBox(height: 64),
+          SizedBox(height: 64.h),
 
           // Premium achievement cards
           LayoutBuilder(
@@ -71,8 +71,8 @@ class AchievementsSection extends StatelessWidget {
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: crossAxisCount,
                   childAspectRatio: 1.1,
-                  crossAxisSpacing: 32,
-                  mainAxisSpacing: 32,
+                  crossAxisSpacing: 32.w,
+                  mainAxisSpacing: 32.h,
                 ),
                 itemCount: achievements.length,
                 itemBuilder: (context, index) {

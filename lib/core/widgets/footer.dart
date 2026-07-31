@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'premium_navbar.dart';
 
 /// Footer component with links and copyright
@@ -51,42 +52,48 @@ class Footer extends StatelessWidget {
             ],
           ),
 
-          const SizedBox(height: 32),
+          SizedBox(height: isMobile ? 16 : 32),
 
           // Navigation links
           Wrap(
-            spacing: 24,
-            runSpacing: 12,
+            spacing: isMobile ? 16 : 24,
+            runSpacing: isMobile ? 8 : 12,
             alignment: WrapAlignment.center,
             children: [
               _FooterLink(
                 label: 'Home',
                 onTap: () => _scrollToSection('home'),
+                isMobile: isMobile,
               ),
               _FooterLink(
                 label: 'About',
                 onTap: () => _scrollToSection('about'),
+                isMobile: isMobile,
               ),
               _FooterLink(
                 label: 'Skills',
                 onTap: () => _scrollToSection('skills'),
+                isMobile: isMobile,
               ),
               _FooterLink(
                 label: 'Experience',
                 onTap: () => _scrollToSection('experience'),
+                isMobile: isMobile,
               ),
               _FooterLink(
                 label: 'Projects',
                 onTap: () => _scrollToSection('projects'),
+                isMobile: isMobile,
               ),
               _FooterLink(
                 label: 'Contact',
                 onTap: () => _scrollToSection('contact'),
+                isMobile: isMobile,
               ),
             ],
           ).animate().fadeIn(duration: 600.ms, delay: 300.ms),
 
-          const SizedBox(height: 32),
+          SizedBox(height: isMobile ? 16.h : 32.h),
 
           // Social links
           Row(
@@ -96,35 +103,40 @@ class Footer extends StatelessWidget {
                 icon: Icons.link,
                 url: 'https://www.linkedin.com/in/shubham-kholam-333889159/',
                 label: 'LinkedIn',
+                isMobile: isMobile,
               ),
-              const SizedBox(width: 16),
+              SizedBox(width: isMobile ? 12.w : 16.w),
               _SocialIcon(
                 icon: Icons.code,
                 url: 'https://github.com/shubhamkholam',
                 label: 'GitHub',
+                isMobile: isMobile,
               ),
-              const SizedBox(width: 16),
+              SizedBox(width: isMobile ? 12.w : 16.w),
               _SocialIcon(
                 icon: Icons.email,
                 url: 'mailto:shubhamkholam@gmail.com',
                 label: 'Email',
+                isMobile: isMobile,
               ),
-              const SizedBox(width: 16),
+              SizedBox(width: isMobile ? 12.w : 16.w),
               _SocialIcon(
                 icon: Icons.chat,
                 url: 'https://wa.me/+917020939720',
                 label: 'WhatsApp',
+                isMobile: isMobile,
               ),
             ],
           ).animate().fadeIn(duration: 600.ms, delay: 400.ms),
 
-          const SizedBox(height: 32),
+          SizedBox(height: isMobile ? 16.h : 32.h),
 
           // Copyright
           Text(
             '© 2026 Shubham Kholam. All rights reserved.',
             style: theme.textTheme.bodySmall?.copyWith(
               color: theme.colorScheme.onSurface.withOpacity(0.5),
+              fontSize: isMobile ? 11.sp : 13.sp,
             ),
           ).animate().fadeIn(duration: 600.ms, delay: 500.ms),
 
@@ -190,10 +202,12 @@ class Footer extends StatelessWidget {
 class _FooterLink extends StatelessWidget {
   final String label;
   final VoidCallback onTap;
+  final bool isMobile;
 
   const _FooterLink({
     required this.label,
     required this.onTap,
+    this.isMobile = false,
   });
 
   @override
@@ -202,13 +216,15 @@ class _FooterLink extends StatelessWidget {
 
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(4),
+      borderRadius: BorderRadius.circular(4.r),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        padding: EdgeInsets.symmetric(
+            horizontal: isMobile ? 6.w : 8.w, vertical: isMobile ? 3.h : 4.h),
         child: Text(
           label,
           style: theme.textTheme.bodyMedium?.copyWith(
             color: theme.colorScheme.onSurface.withOpacity(0.7),
+            fontSize: isMobile ? 13.sp : 15.sp,
           ),
         ),
       ),
@@ -221,11 +237,13 @@ class _SocialIcon extends StatelessWidget {
   final IconData icon;
   final String url;
   final String label;
+  final bool isMobile;
 
   const _SocialIcon({
     required this.icon,
     required this.url,
     required this.label,
+    this.isMobile = false,
   });
 
   Future<void> _launchUrl() async {
@@ -243,12 +261,12 @@ class _SocialIcon extends StatelessWidget {
       message: label,
       child: InkWell(
         onTap: _launchUrl,
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(8.r),
         child: Container(
-          padding: const EdgeInsets.all(12),
+          padding: EdgeInsets.all(isMobile ? 8.w : 12.w),
           decoration: BoxDecoration(
             color: theme.colorScheme.surface,
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(8.r),
             border: Border.all(
               color: theme.colorScheme.outline.withOpacity(0.3),
             ),
@@ -256,7 +274,7 @@ class _SocialIcon extends StatelessWidget {
           child: Icon(
             icon,
             color: theme.colorScheme.primary,
-            size: 20,
+            size: isMobile ? 18.r : 20.r,
           ),
         ),
       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../theme/app_theme.dart';
 
 /// Floating glass navbar with blur effect and scroll animations
@@ -66,8 +67,6 @@ class _PremiumNavbarState extends State<PremiumNavbar> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
-    final size = MediaQuery.of(context).size;
-    final isMobile = size.width < 768;
 
     return AnimatedSlide(
       offset: Offset(0, _isVisible ? 0 : -1),
@@ -77,17 +76,14 @@ class _PremiumNavbarState extends State<PremiumNavbar> {
         opacity: _isVisible ? 1.0 : 0.0,
         duration: const Duration(milliseconds: 300),
         child: Container(
-          height: isMobile ? 80 : 120,
-          padding: EdgeInsets.symmetric(
-            horizontal: isMobile ? 16 : 32,
-            vertical: isMobile ? 8 : 16,
-          ),
+          height: 120.h,
+          padding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 16.h),
           child: Container(
             decoration: BoxDecoration(
               color: isDark
                   ? Colors.white.withOpacity(0.05)
                   : Colors.black.withOpacity(0.02),
-              borderRadius: BorderRadius.circular(isMobile ? 16 : 20),
+              borderRadius: BorderRadius.circular(20.r),
               border: Border.all(
                 color: isDark
                     ? Colors.white.withOpacity(0.1)
@@ -103,14 +99,12 @@ class _PremiumNavbarState extends State<PremiumNavbar> {
               ],
             ),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(isMobile ? 16 : 20),
+              borderRadius: BorderRadius.circular(20.r),
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                 child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: isMobile ? 16 : 24,
-                    vertical: isMobile ? 8 : 12,
-                  ),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
                   child: Row(
                     children: [
                       // Logo
@@ -119,12 +113,12 @@ class _PremiumNavbarState extends State<PremiumNavbar> {
                         style: theme.textTheme.headlineSmall?.copyWith(
                           fontWeight: FontWeight.w700,
                           color: AppTheme.primaryColor,
-                          fontSize: isMobile ? 20 : 24,
+                          fontSize: 24.sp,
                         ),
                       ),
                       const Spacer(),
                       // Nav items - horizontal scroll on mobile
-                      if (isMobile)
+                      if (1.sw < 768.w)
                         Expanded(
                           child: SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
@@ -208,13 +202,13 @@ class _NavItemWidgetState extends State<_NavItemWidget>
     return GestureDetector(
       onTap: widget.onTap,
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: widget.isMobile ? 4 : 8),
+        margin: EdgeInsets.symmetric(horizontal: widget.isMobile ? 4.w : 8.w),
         padding: EdgeInsets.symmetric(
-          horizontal: widget.isMobile ? 12 : 16,
-          vertical: widget.isMobile ? 8 : 12,
+          horizontal: widget.isMobile ? 12.w : 16.w,
+          vertical: widget.isMobile ? 8.h : 12.h,
         ),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(widget.isMobile ? 8 : 12),
+          borderRadius: BorderRadius.circular(widget.isMobile ? 8.r : 12.r),
           color: widget.isActive
               ? AppTheme.primaryColor.withOpacity(0.1)
               : Colors.transparent,
@@ -231,19 +225,19 @@ class _NavItemWidgetState extends State<_NavItemWidget>
                         ? AppTheme.textSecondaryColor
                         : AppTheme.textSecondaryColor),
                 fontWeight: widget.isActive ? FontWeight.w600 : FontWeight.w500,
-                fontSize: widget.isMobile ? 12 : 14,
+                fontSize: widget.isMobile ? 12.sp : 14.sp,
               ),
             ),
-            const SizedBox(height: 2),
+            SizedBox(height: 2.h),
             AnimatedContainer(
               duration: const Duration(milliseconds: 200),
-              height: 2,
+              height: 2.h,
               width: widget.isActive || _isHovered
-                  ? (widget.isMobile ? 16 : 24)
+                  ? (widget.isMobile ? 16.w : 24.w)
                   : 0,
               decoration: BoxDecoration(
                 gradient: AppTheme.auroraGradient1,
-                borderRadius: BorderRadius.circular(1),
+                borderRadius: BorderRadius.circular(1.r),
               ),
             ),
           ],

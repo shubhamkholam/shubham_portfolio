@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'core/theme/app_theme.dart';
 import 'core/theme/theme_provider.dart';
 import 'core/widgets/animated_mesh_background.dart';
@@ -27,13 +28,20 @@ class PortfolioApp extends StatelessWidget {
       create: (_) => ThemeProvider(),
       child: Consumer<ThemeProvider>(
         builder: (context, themeProvider, child) {
-          return MaterialApp(
-            title: 'Shubham Kholam - Senior Flutter Developer',
-            debugShowCheckedModeBanner: false,
-            theme: AppTheme.lightTheme,
-            darkTheme: AppTheme.darkTheme,
-            themeMode: themeProvider.themeMode,
-            home: const PortfolioHomePage(),
+          return ScreenUtilInit(
+            designSize: const Size(1920, 1080),
+            minTextAdapt: true,
+            splitScreenMode: true,
+            builder: (context, child) {
+              return MaterialApp(
+                title: 'Shubham Kholam - Senior Flutter Developer',
+                debugShowCheckedModeBanner: false,
+                theme: AppTheme.lightTheme,
+                darkTheme: AppTheme.darkTheme,
+                themeMode: themeProvider.themeMode,
+                home: const PortfolioHomePage(),
+              );
+            },
           );
         },
       ),

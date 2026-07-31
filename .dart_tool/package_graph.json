@@ -11,6 +11,7 @@
         "cupertino_icons",
         "flutter",
         "flutter_animate",
+        "flutter_screenutil",
         "flutter_svg",
         "go_router",
         "google_fonts",
@@ -78,6 +79,13 @@
         "flutter_web_plugins",
         "logging",
         "meta"
+      ]
+    },
+    {
+      "name": "flutter_screenutil",
+      "version": "5.9.3",
+      "dependencies": [
+        "flutter"
       ]
     },
     {

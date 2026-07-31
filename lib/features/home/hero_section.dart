@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'dart:html' as html;
 import '../../core/theme/app_theme.dart';
 import '../../core/widgets/premium_button.dart';
@@ -17,21 +18,15 @@ class HeroSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final size = MediaQuery.of(context).size;
-    final isMobile = size.width < 768;
 
     return SizedBox(
-      height: isMobile ? size.height * 1.2 : size.height * 1.4,
+      height: 1.4.sh,
       child: Center(
         child: SingleChildScrollView(
-          padding: EdgeInsets.only(
-            left: isMobile ? 16 : 32,
-            right: isMobile ? 16 : 32,
-            top: isMobile ? 80 : 100,
-          ),
+          padding: EdgeInsets.only(left: 32.w, right: 32.w, top: 100.h),
           child: LayoutBuilder(
             builder: (context, constraints) {
-              final isDesktop = constraints.maxWidth > 1200;
+              final isDesktop = constraints.maxWidth > 1200.w;
 
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -46,7 +41,7 @@ class HeroSection extends StatelessWidget {
                           flex: 1,
                           child: _buildTextContent(context, theme),
                         ),
-                        const SizedBox(width: 64),
+                        SizedBox(width: 64.w),
                         // Right side - Profile image with glow
                         Expanded(
                           flex: 1,
@@ -57,16 +52,16 @@ class HeroSection extends StatelessWidget {
                   ] else ...[
                     // Mobile/Tablet - Stacked layout
                     _buildProfileImage(context, theme),
-                    SizedBox(height: isMobile ? 32 : 48),
+                    SizedBox(height: 48.h),
                     _buildTextContent(context, theme),
                   ],
-                  SizedBox(height: isMobile ? 32 : 64),
+                  SizedBox(height: 64.h),
                   // CTA Buttons
                   _buildCTAButtons(context, theme),
-                  SizedBox(height: isMobile ? 32 : 48),
+                  SizedBox(height: 48.h),
                   // Social icons
                   _buildSocialIcons(context, theme),
-                  SizedBox(height: isMobile ? 32 : 48),
+                  SizedBox(height: 48.h),
                   // Scroll indicator
                   const ScrollIndicator(),
                 ],
@@ -88,10 +83,11 @@ class HeroSection extends StatelessWidget {
           style: theme.textTheme.headlineMedium?.copyWith(
             color: AppTheme.textSecondaryColor,
             fontWeight: FontWeight.w500,
+            fontSize: 24.sp,
           ),
         ).animate().fadeIn(duration: 800.ms).slideX(begin: -0.3),
 
-        const SizedBox(height: 16),
+        SizedBox(height: 16.h),
 
         // Name with gradient text
         ShaderMask(
@@ -105,6 +101,7 @@ class HeroSection extends StatelessWidget {
               color: Colors.white,
               fontWeight: FontWeight.w800,
               height: 1.1,
+              fontSize: 48.sp,
             ),
           )
               .animate()
@@ -112,15 +109,16 @@ class HeroSection extends StatelessWidget {
               .slideX(begin: -0.3),
         ),
 
-        const SizedBox(height: 24),
+        SizedBox(height: 24.h),
 
         // Animated role text
         SizedBox(
-          height: 48,
+          height: 48.h,
           child: DefaultTextStyle(
             style: theme.textTheme.headlineSmall!.copyWith(
               color: AppTheme.textSecondaryColor,
               fontWeight: FontWeight.w600,
+              fontSize: 20.sp,
             ),
             child: AnimatedTextKit(
               animatedTexts: [
@@ -137,16 +135,17 @@ class HeroSection extends StatelessWidget {
           ),
         ).animate().fadeIn(duration: 800.ms, delay: 400.ms),
 
-        const SizedBox(height: 32),
+        SizedBox(height: 32.h),
 
         // Tagline
         SizedBox(
-          width: 600,
+          width: 600.w,
           child: Text(
             'Building beautiful, scalable, high-performance cross-platform applications using Flutter and modern development practices.',
             style: theme.textTheme.bodyLarge?.copyWith(
               color: AppTheme.textSecondaryColor,
               height: 1.6,
+              fontSize: 16.sp,
             ),
           ).animate().fadeIn(duration: 800.ms, delay: 600.ms),
         ),

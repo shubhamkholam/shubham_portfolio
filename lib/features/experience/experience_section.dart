@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/widgets/section_header.dart';
 import '../../core/widgets/premium_glass_card.dart';
@@ -12,14 +13,11 @@ class ExperienceSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    final isMobile = size.width < 768;
-
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(
-        horizontal: isMobile ? 16 : (size.width > 1200 ? 120 : 24),
-        vertical: isMobile ? 60 : 100,
+        horizontal: 120.w,
+        vertical: 100.h,
       ),
       child: Column(
         children: [
@@ -28,7 +26,7 @@ class ExperienceSection extends StatelessWidget {
             subtitle: 'A journey through my professional growth',
           ),
 
-          const SizedBox(height: 64),
+          SizedBox(height: 64.h),
 
           // Premium timeline
           _PremiumTimeline(experiences: ExperienceData.experiences),
@@ -201,8 +199,8 @@ class _PremiumExperienceCardState extends State<_PremiumExperienceCard>
     final theme = Theme.of(context);
 
     return PremiumGlassCard(
-      margin: EdgeInsets.symmetric(horizontal: 10),
-      padding: const EdgeInsets.all(32),
+      margin: EdgeInsets.symmetric(horizontal: 10.w),
+      padding: EdgeInsets.all(32.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -218,14 +216,16 @@ class _PremiumExperienceCardState extends State<_PremiumExperienceCard>
                       style: theme.textTheme.titleLarge?.copyWith(
                         fontWeight: FontWeight.w800,
                         color: AppTheme.textColor,
+                        fontSize: 22.sp,
                       ),
                     ),
-                    const SizedBox(height: 8),
+                    SizedBox(height: 8.h),
                     Text(
                       widget.experience.role,
                       style: theme.textTheme.titleMedium?.copyWith(
                         color: AppTheme.primaryColor,
                         fontWeight: FontWeight.w600,
+                        fontSize: 16.sp,
                       ),
                     ),
                   ],
@@ -233,9 +233,9 @@ class _PremiumExperienceCardState extends State<_PremiumExperienceCard>
               ),
               if (widget.experience.isCurrent)
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 16.w,
+                    vertical: 8.h,
                   ),
                   decoration: BoxDecoration(
                     gradient: AppTheme.auroraGradient1,
@@ -256,7 +256,7 @@ class _PremiumExperienceCardState extends State<_PremiumExperienceCard>
                     ),
                   ),
                 ),
-              const SizedBox(width: 16),
+              SizedBox(width: 16.w),
               // Expand/collapse button
               GestureDetector(
                 onTap: _toggleExpand,
@@ -264,14 +264,15 @@ class _PremiumExperienceCardState extends State<_PremiumExperienceCard>
                   turns: _isExpanded ? 0.5 : 0,
                   duration: const Duration(milliseconds: 300),
                   child: Container(
-                    padding: const EdgeInsets.all(12),
+                    padding: EdgeInsets.all(12.w),
                     decoration: BoxDecoration(
                       color: AppTheme.primaryColor.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(12.r),
                     ),
                     child: Icon(
                       Icons.expand_more,
                       color: AppTheme.primaryColor,
+                      size: 24.r,
                     ),
                   ),
                 ),
@@ -279,34 +280,36 @@ class _PremiumExperienceCardState extends State<_PremiumExperienceCard>
             ],
           ).animate().fadeIn(duration: 500.ms, delay: (widget.index * 200).ms),
 
-          const SizedBox(height: 16),
+          SizedBox(height: 16.h),
 
           // Location and duration
           Row(
             children: [
               Icon(
                 Icons.location_on_outlined,
-                size: 18,
+                size: 18.r,
                 color: AppTheme.textSecondaryColor,
               ),
-              const SizedBox(width: 8),
+              SizedBox(width: 8.w),
               Text(
                 widget.experience.location,
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color: AppTheme.textSecondaryColor,
+                  fontSize: 14.sp,
                 ),
               ),
-              const SizedBox(width: 24),
+              SizedBox(width: 24.w),
               Icon(
                 Icons.calendar_today_outlined,
-                size: 18,
+                size: 18.r,
                 color: AppTheme.textSecondaryColor,
               ),
-              const SizedBox(width: 8),
+              SizedBox(width: 8.w),
               Text(
                 '${widget.experience.startDate} - ${widget.experience.endDate ?? 'Present'}',
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color: AppTheme.textSecondaryColor,
+                  fontSize: 14.sp,
                 ),
               ),
             ],
@@ -315,7 +318,7 @@ class _PremiumExperienceCardState extends State<_PremiumExperienceCard>
                 delay: (widget.index * 200 + 100).ms,
               ),
 
-          const SizedBox(height: 24),
+          SizedBox(height: 24.h),
 
           // Expandable content
           SizeTransition(
