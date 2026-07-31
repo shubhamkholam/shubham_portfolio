@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'dart:html' as html;
 import '../../core/theme/app_theme.dart';
 import '../../core/widgets/section_header.dart';
 import '../../models/project.dart';
@@ -411,13 +411,8 @@ class _PremiumProjectCardState extends State<_PremiumProjectCard>
 
   Future<void> _launchUrl(String url) async {
     debugPrint('Launching URL: $url');
-    final uri = Uri.parse(url);
-    if (await canLaunchUrl(uri)) {
-      debugPrint('Can launch URL, launching...');
-      await launchUrl(uri, mode: LaunchMode.externalApplication);
-    } else {
-      debugPrint('Cannot launch URL: $url');
-    }
+    // For web, use window.open to ensure it opens in new tab
+    html.window.open(url, '_blank');
   }
 }
 
