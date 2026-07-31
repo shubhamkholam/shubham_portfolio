@@ -195,6 +195,7 @@ class _PremiumExperienceCardState extends State<_PremiumExperienceCard>
     final theme = Theme.of(context);
 
     return PremiumGlassCard(
+      margin: EdgeInsets.symmetric(horizontal: 10),
       padding: const EdgeInsets.all(32),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

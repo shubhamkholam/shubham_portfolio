@@ -18,7 +18,7 @@ class HeroSection extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     return SizedBox(
-      height: size.height * 0.99,
+      height: size.height * 0.1,
       child: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.only(left: 32, right: 32, top: 100),
@@ -210,7 +210,7 @@ class HeroSection extends StatelessWidget {
       children: [
         _SocialIcon(
           icon: Icons.link,
-          url: 'https://linkedin.com/in/shubhamkholam',
+          url: 'https://www.linkedin.com/in/shubham-kholam-333889159/',
         ),
         const SizedBox(width: 16),
         _SocialIcon(
@@ -220,12 +220,12 @@ class HeroSection extends StatelessWidget {
         const SizedBox(width: 16),
         _SocialIcon(
           icon: Icons.email,
-          url: 'mailto:shubham@example.com',
+          url: 'mailto:shubhamkholam@gmail.com',
         ),
         const SizedBox(width: 16),
         _SocialIcon(
           icon: Icons.phone,
-          url: 'tel:+919876543210',
+          url: 'tel:+917020939720',
         ),
       ],
     ).animate().fadeIn(duration: 800.ms, delay: 1000.ms);
