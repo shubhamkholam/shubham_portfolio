@@ -36,14 +36,31 @@ class _ContactSectionState extends State<ContactSection> {
     if (_formKey.currentState!.validate()) {
       setState(() => _isSubmitting = true);
 
-      await Future.delayed(const Duration(seconds: 2));
+      // Construct mailto link with form data
+      final name = _nameController.text.trim();
+      final email = _emailController.text.trim();
+      final subject = _subjectController.text.trim();
+      final message = _messageController.text.trim();
+
+      final mailtoLink = Uri(
+        scheme: 'mailto',
+        path: 'shubhamkholam@gmail.com',
+        query: _encodeQueryParameters({
+          'subject': '$subject - From: $name ($email)',
+          'body': 'Name: $name\nEmail: $email\n\nMessage:\n$message',
+        }),
+      );
+
+      if (await canLaunchUrl(mailtoLink)) {
+        await launchUrl(mailtoLink);
+      }
 
       setState(() => _isSubmitting = false);
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: const Text('Message sent successfully!'),
+            content: const Text('Opening email client...'),
             backgroundColor: AppTheme.primaryColor,
             behavior: SnackBarBehavior.floating,
           ),
@@ -51,6 +68,13 @@ class _ContactSectionState extends State<ContactSection> {
         _formKey.currentState!.reset();
       }
     }
+  }
+
+  String _encodeQueryParameters(Map<String, String> params) {
+    return params.entries
+        .map((e) =>
+            '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+        .join('&');
   }
 
   @override
@@ -153,8 +177,8 @@ class _ContactSectionState extends State<ContactSection> {
         _PremiumContactInfo(
           icon: Icons.phone_outlined,
           label: 'Phone',
-          value: '+91 98765 43210',
-          url: 'tel:+919876543210',
+          value: '+91 70209 39720',
+          url: 'tel:+917020939720',
         ).animate().fadeIn(duration: 600.ms, delay: 400.ms),
 
         const SizedBox(height: 24),
@@ -241,7 +265,7 @@ class _ContactSectionState extends State<ContactSection> {
             const SizedBox(width: 16),
             _PremiumSocialButton(
               icon: Icons.chat_outlined,
-              url: 'https://wa.me/919876543210',
+              url: 'https://wa.me/+917020939720',
               label: 'WhatsApp',
             ),
           ],
@@ -500,7 +524,7 @@ class _PremiumContactInfoState extends State<_PremiumContactInfo>
                           const SizedBox(height: 4),
                           Text(
                             widget.value,
-                            style: theme.textTheme.bodyLarge?.copyWith(
+                            style: theme.textTheme.bodyMedium?.copyWith(
                               fontWeight: FontWeight.w600,
                               color: AppTheme.textColor,
                             ),

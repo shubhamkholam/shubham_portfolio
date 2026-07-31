@@ -116,7 +116,7 @@ class AboutSection extends StatelessWidget {
         const SizedBox(height: 24),
 
         Text(
-          'I am a passionate Senior Flutter Developer with over 6 years of experience in building beautiful, scalable, and high-performance cross-platform applications. My expertise lies in creating mobile apps that provide exceptional user experiences while maintaining clean architecture and best practices.',
+          'I am a passionate Senior Flutter Developer with over 6+ years of experience in building beautiful, scalable, and high-performance cross-platform applications. My expertise lies in creating mobile apps that provide exceptional user experiences while maintaining clean architecture and best practices.',
           style: theme.textTheme.bodyLarge?.copyWith(
             color: AppTheme.textSecondaryColor,
             height: 1.6,
