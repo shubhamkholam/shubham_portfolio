@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'dart:html' as html;
 import '../../core/theme/app_theme.dart';
 import '../../core/widgets/premium_button.dart';
 import '../../core/widgets/gradient_border_container.dart';
@@ -187,8 +189,8 @@ class HeroSection extends StatelessWidget {
         PremiumButton(
           text: 'Download Resume',
           icon: Icons.download,
-          onPressed: () {
-            // TODO: Implement resume download
+          onPressed: () async {
+            await _downloadResume();
           },
         ),
         const SizedBox(width: 24),
@@ -202,6 +204,25 @@ class HeroSection extends StatelessWidget {
         ),
       ],
     ).animate().fadeIn(duration: 800.ms, delay: 800.ms);
+  }
+
+  Future<void> _downloadResume() async {
+    try {
+      // Load the resume asset
+      final byteData =
+          await rootBundle.load('assets/resume/shubham_kholam.pdf');
+      final bytes = byteData.buffer.asUint8List();
+
+      // Create blob and download link for web
+      final blob = html.Blob([bytes], 'application/pdf');
+      final url = html.Url.createObjectUrlFromBlob(blob);
+      html.AnchorElement(href: url)
+        ..setAttribute('download', 'shubham_kholam_resume.pdf')
+        ..click();
+      html.Url.revokeObjectUrl(url);
+    } catch (e) {
+      debugPrint('Error downloading resume: $e');
+    }
   }
 
   Widget _buildSocialIcons(BuildContext context, ThemeData theme) {
