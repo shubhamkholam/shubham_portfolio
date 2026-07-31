@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'premium_navbar.dart';
 
 /// Footer component with links and copyright
 class Footer extends StatelessWidget {
-  const Footer({super.key});
+  final ScrollController scrollController;
+  final List<NavItem> items;
+
+  const Footer({
+    super.key,
+    required this.scrollController,
+    required this.items,
+  });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(vertical: 48, horizontal: 24),
@@ -37,9 +45,9 @@ class Footer extends StatelessWidget {
               ).animate().fadeIn(duration: 600.ms, delay: 200.ms),
             ],
           ),
-          
+
           const SizedBox(height: 32),
-          
+
           // Navigation links
           Wrap(
             spacing: 24,
@@ -72,16 +80,16 @@ class Footer extends StatelessWidget {
               ),
             ],
           ).animate().fadeIn(duration: 600.ms, delay: 300.ms),
-          
+
           const SizedBox(height: 32),
-          
+
           // Social links
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               _SocialIcon(
                 icon: Icons.link,
-                url: 'https://linkedin.com/in/shubhamkholam',
+                url: 'https://www.linkedin.com/in/shubham-kholam-333889159/',
                 label: 'LinkedIn',
               ),
               const SizedBox(width: 16),
@@ -93,20 +101,20 @@ class Footer extends StatelessWidget {
               const SizedBox(width: 16),
               _SocialIcon(
                 icon: Icons.email,
-                url: 'mailto:shubham@example.com',
+                url: 'mailto:shubhamkholam@gmail.com',
                 label: 'Email',
               ),
               const SizedBox(width: 16),
               _SocialIcon(
                 icon: Icons.chat,
-                url: 'https://wa.me/919876543210',
+                url: 'https://wa.me/917020939720',
                 label: 'WhatsApp',
               ),
             ],
           ).animate().fadeIn(duration: 600.ms, delay: 400.ms),
-          
+
           const SizedBox(height: 32),
-          
+
           // Copyright
           Text(
             '© 2024 Shubham Kholam. All rights reserved.',
@@ -114,9 +122,9 @@ class Footer extends StatelessWidget {
               color: theme.colorScheme.onSurface.withOpacity(0.5),
             ),
           ).animate().fadeIn(duration: 600.ms, delay: 500.ms),
-          
+
           const SizedBox(height: 8),
-          
+
           Text(
             'Built with Flutter ❤️',
             style: theme.textTheme.bodySmall?.copyWith(
@@ -129,7 +137,17 @@ class Footer extends StatelessWidget {
   }
 
   void _scrollToSection(String sectionId) {
-    // TODO: Implement scroll to section logic
+    final item = items.firstWhere(
+      (item) => item.id == sectionId,
+      orElse: () => items.first,
+    );
+    if (item.key.currentContext != null) {
+      Scrollable.ensureVisible(
+        item.key.currentContext!,
+        duration: const Duration(milliseconds: 800),
+        curve: Curves.easeInOutCubic,
+      );
+    }
   }
 }
 
@@ -146,7 +164,7 @@ class _FooterLink extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(4),
@@ -185,7 +203,7 @@ class _SocialIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Tooltip(
       message: label,
       child: InkWell(

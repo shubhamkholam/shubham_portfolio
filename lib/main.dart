@@ -116,7 +116,12 @@ class _PortfolioHomePageState extends State<PortfolioHomePage> {
                 ),
 
                 // Footer
-                SliverToBoxAdapter(child: Footer()),
+                SliverToBoxAdapter(
+                  child: Footer(
+                    scrollController: _scrollController,
+                    items: _navItems,
+                  ),
+                ),
               ],
             ),
             // Floating Navbar
