@@ -216,16 +216,16 @@ class _PremiumExperienceCardState extends State<_PremiumExperienceCard>
                       style: theme.textTheme.titleLarge?.copyWith(
                         fontWeight: FontWeight.w800,
                         color: AppTheme.textColor,
-                        fontSize: 22.sp,
+                        fontSize: 26.sp,
                       ),
                     ),
-                    SizedBox(height: 8.h),
+                    SizedBox(height: 10.h),
                     Text(
                       widget.experience.role,
                       style: theme.textTheme.titleMedium?.copyWith(
                         color: AppTheme.primaryColor,
                         fontWeight: FontWeight.w600,
-                        fontSize: 16.sp,
+                        fontSize: 18.sp,
                       ),
                     ),
                   ],
@@ -295,7 +295,7 @@ class _PremiumExperienceCardState extends State<_PremiumExperienceCard>
                 widget.experience.location,
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color: AppTheme.textSecondaryColor,
-                  fontSize: 14.sp,
+                  fontSize: 16.sp,
                 ),
               ),
               SizedBox(width: 24.w),
@@ -309,7 +309,7 @@ class _PremiumExperienceCardState extends State<_PremiumExperienceCard>
                 '${widget.experience.startDate} - ${widget.experience.endDate ?? 'Present'}',
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color: AppTheme.textSecondaryColor,
-                  fontSize: 14.sp,
+                  fontSize: 16.sp,
                 ),
               ),
             ],

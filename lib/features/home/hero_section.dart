@@ -197,17 +197,17 @@ class HeroSection extends StatelessWidget {
             await _downloadResume();
           },
         ),
-        const SizedBox(width: 24),
+        SizedBox(width: 16.w),
         PremiumButton(
           text: 'Contact Me',
-          icon: Icons.send,
+          icon: Icons.mail,
           isPrimary: false,
           onPressed: () {
             // Scroll to contact section
           },
         ),
       ],
-    ).animate().fadeIn(duration: 800.ms, delay: 800.ms);
+    ).animate().fadeIn(duration: 600.ms, delay: 800.ms);
   }
 
   Future<void> _downloadResume() async {

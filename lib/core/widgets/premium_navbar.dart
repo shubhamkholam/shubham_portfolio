@@ -113,7 +113,7 @@ class _PremiumNavbarState extends State<PremiumNavbar> {
                         style: theme.textTheme.headlineSmall?.copyWith(
                           fontWeight: FontWeight.w700,
                           color: AppTheme.primaryColor,
-                          fontSize: 24.sp,
+                          fontSize: 28.sp,
                         ),
                       ),
                       const Spacer(),

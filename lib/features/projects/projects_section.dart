@@ -314,20 +314,20 @@ class _PremiumProjectCardState extends State<_PremiumProjectCard>
                           style: theme.textTheme.titleMedium?.copyWith(
                             fontWeight: FontWeight.w700,
                             color: AppTheme.textColor,
-                            fontSize: 18.sp,
+                            fontSize: 22.sp,
                           ),
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                         ),
 
-                        SizedBox(height: 8.h),
+                        SizedBox(height: 10.h),
 
                         // Description
                         Text(
                           widget.project.description,
                           style: theme.textTheme.bodySmall?.copyWith(
                             color: AppTheme.textSecondaryColor,
-                            fontSize: 14.sp,
+                            fontSize: 16.sp,
                           ),
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
@@ -359,7 +359,7 @@ class _PremiumProjectCardState extends State<_PremiumProjectCard>
                                 style: theme.textTheme.bodySmall?.copyWith(
                                   color: AppTheme.primaryColor,
                                   fontWeight: FontWeight.w500,
-                                  fontSize: 12.sp,
+                                  fontSize: 14.sp,
                                 ),
                               ),
                             );
@@ -498,7 +498,7 @@ class _ActionButtonState extends State<_ActionButton>
                     style: theme.textTheme.bodySmall?.copyWith(
                       color: _isHovered ? Colors.white : AppTheme.primaryColor,
                       fontWeight: FontWeight.w600,
-                      fontSize: 13.sp,
+                      fontSize: 15.sp,
                     ),
                   ),
                 ],
