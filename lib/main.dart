@@ -138,11 +138,11 @@ class _PortfolioHomePageState extends State<PortfolioHomePage> {
               ),
             ),
             // Visitor Counter
-            Positioned(
-              bottom: 20,
-              right: 20,
-              child: const VisitorCounter(),
-            ),
+            // Positioned(
+            //   bottom: 20,
+            //   right: 20,
+            //   child: const VisitorCounter(),
+            // ),
           ],
         ),
       ),
