@@ -134,21 +134,6 @@ class _PortfolioHomePageState extends State<PortfolioHomePage> {
           ],
         ),
       ),
-      floatingActionButton: Consumer<ThemeProvider>(
-        builder: (context, themeProvider, child) {
-          return FloatingActionButton(
-            onPressed: () {
-              themeProvider.toggleTheme();
-            },
-            tooltip: 'Toggle Theme',
-            child: Icon(
-              themeProvider.themeMode == ThemeMode.dark
-                  ? Icons.light_mode
-                  : Icons.dark_mode,
-            ),
-          );
-        },
-      ),
     );
   }
 }

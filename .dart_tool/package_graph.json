@@ -120,6 +120,13 @@
       ]
     },
     {
+      "name": "simple_animations",
+      "version": "5.2.0",
+      "dependencies": [
+        "flutter"
+      ]
+    },
+    {
       "name": "lottie",
       "version": "3.3.3",
       "dependencies": [
@@ -375,6 +382,11 @@
         "meta",
         "url_launcher_platform_interface"
       ]
+    },
+    {
+      "name": "supercharged_dart",
+      "version": "2.1.1",
+      "dependencies": []
     },
     {
       "name": "archive",
@@ -719,18 +731,6 @@
         "collection",
         "meta",
         "pub_semver"
-      ]
-    },
-    {
-      "name": "supercharged_dart",
-      "version": "2.1.1",
-      "dependencies": []
-    },
-    {
-      "name": "simple_animations",
-      "version": "5.2.0",
-      "dependencies": [
-        "flutter"
       ]
     }
   ],

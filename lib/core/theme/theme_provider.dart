@@ -12,8 +12,8 @@ class ThemeProvider extends ChangeNotifier {
   }
 
   ThemeProvider() {
-    // Initialize with system theme
-    _themeMode = ThemeMode.system;
+    // Initialize with dark mode
+    _themeMode = ThemeMode.dark;
   }
 
   void setThemeMode(ThemeMode mode) {
@@ -22,9 +22,8 @@ class ThemeProvider extends ChangeNotifier {
   }
 
   void toggleTheme() {
-    _themeMode = _themeMode == ThemeMode.light
-        ? ThemeMode.dark
-        : ThemeMode.light;
+    _themeMode =
+        _themeMode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
     notifyListeners();
   }
 }
