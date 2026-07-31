@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import '../../core/theme/app_theme.dart';
 import '../../core/widgets/section_header.dart';
 import '../../core/widgets/premium_button.dart';
@@ -36,45 +38,66 @@ class _ContactSectionState extends State<ContactSection> {
     if (_formKey.currentState!.validate()) {
       setState(() => _isSubmitting = true);
 
-      // Construct mailto link with form data
       final name = _nameController.text.trim();
       final email = _emailController.text.trim();
       final subject = _subjectController.text.trim();
       final message = _messageController.text.trim();
 
-      final mailtoLink = Uri(
-        scheme: 'mailto',
-        path: 'shubhamkholam@gmail.com',
-        query: _encodeQueryParameters({
-          'subject': '$subject - From: $name ($email)',
-          'body': 'Name: $name\nEmail: $email\n\nMessage:\n$message',
-        }),
-      );
+      // Formspree endpoint - replace with your actual form ID
+      // Get your form ID from https://formspree.io/
+      const formId = 'mdaqvyze';
+      final url = Uri.parse('https://formspree.io/f/$formId');
 
-      if (await canLaunchUrl(mailtoLink)) {
-        await launchUrl(mailtoLink);
-      }
-
-      setState(() => _isSubmitting = false);
-
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: const Text('Opening email client...'),
-            backgroundColor: AppTheme.primaryColor,
-            behavior: SnackBarBehavior.floating,
-          ),
+      try {
+        final response = await http.post(
+          url,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: jsonEncode({
+            'name': name,
+            'email': email,
+            'subject': subject,
+            'message': message,
+          }),
         );
-        _formKey.currentState!.reset();
+
+        setState(() => _isSubmitting = false);
+
+        if (mounted) {
+          if (response.statusCode == 200) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: const Text('Message sent successfully!'),
+                backgroundColor: Colors.green,
+                behavior: SnackBarBehavior.floating,
+              ),
+            );
+            _formKey.currentState!.reset();
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content:
+                    const Text('Failed to send message. Please try again.'),
+                backgroundColor: Colors.red,
+                behavior: SnackBarBehavior.floating,
+              ),
+            );
+          }
+        }
+      } catch (e) {
+        setState(() => _isSubmitting = false);
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: const Text('Error sending message. Please try again.'),
+              backgroundColor: Colors.red,
+              behavior: SnackBarBehavior.floating,
+            ),
+          );
+        }
       }
     }
-  }
-
-  String _encodeQueryParameters(Map<String, String> params) {
-    return params.entries
-        .map((e) =>
-            '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
-        .join('&');
   }
 
   @override
